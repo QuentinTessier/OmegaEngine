@@ -12,7 +12,7 @@
 sfVector2f *generate_point(void)
 {
 	int count = 0;
-	sfVector2f *vector_map = malloc(sizeof(sfVector2f) * 31 * 17);
+	sfVector2f *vector_map = malloc(sizeof(sfVector2f) * ((X_V + 1) * (Y_V + 1)));
 
 	for (int i = 0; i <= Y_V; i++) {
 		for (int j = 0; j <= X_V; j++) {
