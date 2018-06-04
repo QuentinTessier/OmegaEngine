@@ -11,7 +11,7 @@ int check_world_position(p_t *player, dis_t *display)
 {
 	if (player->x < display->x || player->y < display->y)
 		return (0);
-	if (player->x > display->x + 31 || player->y > display->y + 16)
+	if ((player->x > (display->x + 29)) || (player->y > (display->y + 15)))
 		return (0);
 	else
 		return (1);

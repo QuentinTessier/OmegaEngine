@@ -9,7 +9,24 @@
 #include <stdlib.h>
 #include "engine.h"
 
-void event(sfRenderWindow *window, dis_t *display)
+void simple_player_movement(sfEvent event, sfRenderWindow *window, p_t *player)
+{
+	if (event.type == sfEvtKeyPressed && sfKeyboard_isKeyPressed(sfKeyUp)){
+		player->y -= 1;
+	}
+	if (event.type == sfEvtKeyPressed && sfKeyboard_isKeyPressed(sfKeyDown)){
+		player->y += 1;
+	}
+	if (event.type == sfEvtKeyPressed && sfKeyboard_isKeyPressed(sfKeyLeft)){
+		player->x -= 1;
+	}
+	if (event.type == sfEvtKeyPressed && sfKeyboard_isKeyPressed(sfKeyRight)){
+		player->x += 1;
+	}
+	return;
+}
+
+void event(sfRenderWindow *window, dis_t *display, p_t *player)
 {
 	sfEvent event;
 	while (sfRenderWindow_pollEvent(window, &event)) {
@@ -20,22 +37,33 @@ void event(sfRenderWindow *window, dis_t *display)
 			&& sfKeyboard_isKeyPressed(sfKeyZ)){
 			display->y -= 1;
 			display->generated = generator(X_V, Y_V, display->x, display->y);
+			update_shape(display);
 		}
 		if (event.type == sfEvtKeyPressed
 			&& sfKeyboard_isKeyPressed(sfKeyS)){
 			display->y += 1;
 			display->generated = generator(X_V, Y_V, display->x, display->y);
+			update_shape(display);
 		}
 		if (event.type == sfEvtKeyPressed
 			&& sfKeyboard_isKeyPressed(sfKeyQ)){
 			display->x -= 1;
 			display->generated = generator(X_V, Y_V, display->x, display->y);
+			update_shape(display);
 		}
 		if (event.type == sfEvtKeyPressed
 			&& sfKeyboard_isKeyPressed(sfKeyD)){
 			display->x += 1;
 			display->generated = generator(X_V, Y_V, display->x, display->y);
+			update_shape(display);
 		}
+		if (event.type == sfEvtKeyPressed && sfKeyboard_isKeyPressed(sfKeySpace)){
+			display->x = player->x - 14;
+			display->y = player->y - 7;
+			display->generated = generator(X_V, Y_V, display->x, display->y);
+			update_shape(display);						
+		}
+		simple_player_movement(event, window, player);
 	}
 	return;
 }
@@ -65,13 +93,13 @@ int main()
 	display->y = 0;
 	sfVideoMode mode = {WIN_WIDTH, WIN_HEIGHT, 32};
 	sfRenderWindow *window = sfRenderWindow_create(mode, "ENGINE", sfClose, NULL);
+	update_shape(display);	
 	while (sfRenderWindow_isOpen(window)) {
-		event(window, display);
+		event(window, display, player);
 		sfRenderWindow_clear(window, sfBlack);
-		update_shape(display);
 		display_convex(display, window);
 		if (check_world_position(player, display) != 0)
-			render_player(display->vector_map[get_map_position(player, display)], window, player);
+			render_player(display->vector_map[get_map_position(player, display)], window, player);	
 		sfRenderWindow_display(window);
 	}
 	sfRenderWindow_destroy(window);
