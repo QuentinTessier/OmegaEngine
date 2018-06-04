@@ -23,15 +23,10 @@ sfColor get_color(double value)
 	double ramp = value - (double)nb;
 	int col = color_value(ramp);
 
-	if (nb < 1)
+	if (nb < 3)
 		return ((sfColor){0, col, 0, 255});
-	else if (nb < 2)
-		return ((sfColor){0, col, 0, 255});
-	else if (nb < 3)
+	else
 		return ((sfColor){col, col, col, 255});
-	else {
-		return ((sfColor){0, col, 0, 255});
-	}
 	return (sfBlack);
 }
 

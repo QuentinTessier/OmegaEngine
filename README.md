@@ -1,32 +1,34 @@
 # CSFML_2D_ENGINE
-This is a student project made in C.
-This programme is a small 2D engine using the CSFML library (https://www.sfml-dev.org/download/csfml/index-fr.php)
 
-Might not work on Windows and Mac (never tried, leave a comment if it worked). Compile on linux using the Makefile.
-The binary name is ENGINE2D.
+This is my holydays project. I'm using CSFML (https://www.sfml-dev.org/download/csfml/index-fr.php) to make a simple 2D game engine.
 
-If you see any error in the code (use the "debug" flag for compiling with -g) leave a comment, I will try to fix the issue as soon as I can.
+My goal is to be able to roam on a huge map, with monster to fight and many others features.
 
+To move in this version just use Z, Q, S, D for the camera and the direction key for the player.
 
-Information regarding the code
+Generation and map rendering :
 
-	Use Z, Q, S, D to move around (normal game keys).
+	I'm using a CoherentNoise to bind a value to some coordinates. (See generator.c)
+	The value generated is a double from 0 to around 5.0, using this value I can choose the color and the shade of that color.
 
-	Every square is 64px x 64px
+	The color system is simple (need to be changed for a more optimized one) :
 
-	The window is 1920x1080
+	If we generate 2.34 and 4.50 :
 
-	The color is choose from the floating part of the coherent value :
+	From 0 to 3 : Green => (0, 255 * 0.34, 0, 255)
+	All other value : Grey => (255 * 0.50, 255 * 0.50, 255 * 0.50, 255);
 
-		exemple :
-		
-		1.50 -> 1.?? is green
-		(0, 255 * 0.50, 0) will be the shade of green for that square. (See convex.c first 2 functions.)
+Player Rendering :
 
-Upcoming features
+	The player is a simple player with coordinates in the world, I can know if he is in the window or somewhere else to decide when to render him.
+	The player is rendered after the map. I'm currently making many player movement and camera movement function.
 
-	Charactere movement, Camera movement (Move with key or follow player);
+Upcoming features :
 
-	Spawning monsters (maybe a simple AI).
+	Camera centered on the player, Player can't leave the camera and other way to handle the camera.
 
-	Item system.
+	Monster and combat.
+
+	Item looting, inventory.
+
+	Scene system to handle launch menu, button ...
