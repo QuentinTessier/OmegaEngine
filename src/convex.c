@@ -38,7 +38,7 @@ sfColor get_color(double value)
 void update_shape(dis_t *display)
 {
 	sfColor color;
-	for (int i = 0; i < ((X_V + 1) * (Y_V + 1)); i++) {
+	for (int i = 0; i < (X_V * Y_V); i++) {
 		color = get_color(display->generated[i]);
 		sfRectangleShape_setFillColor(display->convex_map[i], color);
 	}
@@ -47,13 +47,13 @@ void update_shape(dis_t *display)
 
 sfRectangleShape **generate_convex(dis_t *display)
 {
-	sfRectangleShape **convex_map = malloc(sizeof(sfRectangleShape *) * ((X_V + 1) * (Y_V + 1)));
+	sfRectangleShape **convex_map = malloc(sizeof(sfRectangleShape *) * X_V * Y_V);
 	int count = 0;
 
-	for (int i = 0; i < ((X_V + 1) * (Y_V + 1)); i++)
+	for (int i = 0; i < (X_V * Y_V); i++)
 		convex_map[i] = sfRectangleShape_create();
 	for (int i = 1; i < 2; i++) {
-		for (int j = 0; j < ((X_V + 1) * (Y_V + 1)); j++) {
+		for (int j = 0; j < (X_V * Y_V); j++) {
 			sfRectangleShape_setSize(convex_map[j], (sfVector2f){64, 64});
 			sfRectangleShape_setPosition(convex_map[j], display->vector_map[j]);
 			count++;
@@ -65,7 +65,7 @@ sfRectangleShape **generate_convex(dis_t *display)
 
 void display_convex(dis_t *display, sfRenderWindow *window)
 {
-	for (int i = 0; i < ((X_V + 1) * (Y_V + 1)); i++) {
+	for (int i = 0; i < (X_V * Y_V); i++) {
 		sfRenderWindow_drawRectangleShape(window, display->convex_map[i], NULL);
 	}
 }

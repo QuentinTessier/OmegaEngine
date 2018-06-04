@@ -12,10 +12,10 @@
 sfVector2f *generate_point(void)
 {
 	int count = 0;
-	sfVector2f *vector_map = malloc(sizeof(sfVector2f) * ((X_V + 1) * (Y_V + 1)));
+	sfVector2f *vector_map = malloc(sizeof(sfVector2f) * (X_V * Y_V));
 
-	for (int i = 0; i <= Y_V; i++) {
-		for (int j = 0; j <= X_V; j++) {
+	for (int i = 0; i < Y_V; i++) {
+		for (int j = 0; j < X_V; j++) {
 			vector_map[count].x = j * 64;
 			vector_map[count].y = i * 64;
 			count++;
