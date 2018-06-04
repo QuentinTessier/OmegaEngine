@@ -25,8 +25,8 @@ Information regarding the code
 
 Upcoming features
 
-	Rendering a sprite for the character.
+	Charactere movement, Camera movement (Move with key or follow player);
 
-	Spawning a few monster with there sprite (maybe a simple AI).
+	Spawning monsters (maybe a simple AI).
 
 	Item system.
