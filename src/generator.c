@@ -66,15 +66,13 @@ double *generator(int x, int y, int px, int py)
 	double *map = malloc(sizeof(double) * x * y);
 	int count = 0;
 	int tmp = px;
-	int j;
+	int j = 0;
 
 	if (seed == 0)
 		seed = rand() % 3000 + 1;
 	for (int i = 0; i < y; i++) {
 		for (j = 0; j < x; j++) {
 			map[count + j] = CoherentNoise((double)px, (double)py);
-			if (map[count + j] < 0.0)
-				map[count + j] *= -1;
 			px++;
 		}
 		count += j;

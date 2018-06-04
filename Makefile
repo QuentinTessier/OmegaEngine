@@ -19,7 +19,7 @@ $(NAME):	$(OBJ)
 	gcc -o $(NAME) $(OBJ) -lc_graph_prog -lm
 
 debug:  CFLAGS += -g
-debug:	re
+debug:	re clean
 
 clean:
 	rm -f $(OBJ)

@@ -6,6 +6,7 @@
 */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include "engine.h"
 
 int color_value(double ramp)
@@ -36,6 +37,38 @@ void update_shape(dis_t *display)
 	for (int i = 0; i < (X_V * Y_V); i++) {
 		color = get_color(display->generated[i]);
 		sfRectangleShape_setFillColor(display->convex_map[i], color);
+	}
+	return;
+}
+
+sfTexture *get_texture(double value, t_t *tex)
+{
+	int int_value = (int)value;
+
+	//printf("a");
+	if (int_value < 0)
+		int_value *= -1;
+	if (int_value > 2)
+		int_value = 2;
+	return (tex[int_value].t);
+}
+
+t_t *create_texture(void)
+{
+	t_t *tex = malloc(sizeof(t_t) * 6);
+	sfIntRect r = {0, 0, 64, 64};
+
+	tex[0].t = sfTexture_createFromFile("./assets/rock_tiles.png", &r);
+	tex[1].t = sfTexture_createFromFile("./assets/dirt_tile.png", &r);
+	tex[2].t = sfTexture_createFromFile("./assets/grass_tile.png", &r);
+	return (tex);
+}
+
+void update_shape_texture(dis_t *display, t_t *tex)
+{
+	for (int i = 0; i < (X_V * Y_V); i++) {
+		//printf("%d : %0.1f\n", i, display->generated[i]);
+		sfRectangleShape_setTexture(display->convex_map[i], get_texture(display->generated[i], tex), sfFalse);
 	}
 	return;
 }
