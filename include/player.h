@@ -10,15 +10,23 @@
 
 #include <SFML/Graphics.h>
 
+typedef struct player_stats {
+	char *name;
+	float health;
+	float attack;
+	float defence;
+} ps_t;
+
 typedef struct player {
 	int x;
 	int y;
+	ps_t *stat;
 	sfSprite *s;
 	sfTexture *t;
 	sfIntRect r;
 } p_t;
 
 void render_player(sfVector2f position, sfRenderWindow *window, p_t *player);
-p_t *init_player(void);
+p_t init_player(void);
 
 #endif /* !PLAYER_H_ */

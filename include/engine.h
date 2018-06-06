@@ -15,6 +15,7 @@
 	#define WIN_HEIGHT (1080)
 	#define X_V (30)
 	#define Y_V (16)
+	#define MOV(a) (sfKeyboard_isKeyPressed(a))
 
 typedef struct texture {
 	sfTexture *t;
@@ -37,5 +38,7 @@ int check_world_position(p_t *player, dis_t *display);
 int get_map_position(p_t *player, dis_t *display);
 t_t *create_texture(void);
 void update_shape_texture(dis_t *display, t_t *tex);
+void camera_bind_to_player(sfRenderWindow *window, dis_t *display, p_t *player, t_t *tex);
+void simple_movement(sfRenderWindow *window, dis_t *display, p_t *player, t_t *tex);
 
 #endif /* !ENGINE_H_ */

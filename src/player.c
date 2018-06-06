@@ -8,19 +8,19 @@
 #include <stdlib.h>
 #include "engine.h"
 
-p_t *init_player(void)
+p_t init_player(void)
 {
-	p_t *player = malloc(sizeof(p_t));
+	p_t player;
 
-	player->s = sfSprite_create();
-	player->r.left = 0;
-	player->r.top = 0;
-	player->r.height = 64;
-	player->r.width = 64;
-	player->t = sfTexture_createFromFile("./assets/player.png", &player->r);
-	sfSprite_setTexture(player->s, player->t, sfFalse);
-	player->x = 0;
-	player->y = 0;
+	player.s = sfSprite_create();
+	player.r.left = 0;
+	player.r.top = 0;
+	player.r.height = 64;
+	player.r.width = 64;
+	player.t = sfTexture_createFromFile("./assets/player.png", &player.r);
+	sfSprite_setTexture(player.s, player.t, sfFalse);
+	player.x = 14;
+	player.y = 7;
 	return (player);
 }
 
