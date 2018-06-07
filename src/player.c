@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include "engine.h"
 
-p_t init_player(void)
+p_t init_player(win_t *win_info)
 {
 	p_t player;
 
@@ -19,8 +19,10 @@ p_t init_player(void)
 	player.r.width = 64;
 	player.t = sfTexture_createFromFile("./assets/player.png", &player.r);
 	sfSprite_setTexture(player.s, player.t, sfFalse);
-	player.x = 14;
-	player.y = 7;
+	player.x = win_info->sq_x / 2;
+	player.y = win_info->sq_y / 2;
+	//player.x = 0;
+	//player.y = 0;
 	return (player);
 }
 

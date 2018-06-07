@@ -27,6 +27,5 @@ typedef struct player {
 } p_t;
 
 void render_player(sfVector2f position, sfRenderWindow *window, p_t *player);
-p_t init_player(void);
 
 #endif /* !PLAYER_H_ */

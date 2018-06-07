@@ -13,7 +13,7 @@
 
 static int seed = 0;
 
-double IntergerNoise(int n)
+static double IntergerNoise(int n)
 {
 	int nn;
 
@@ -22,29 +22,14 @@ double IntergerNoise(int n)
 	return (1.0 - ((double)nn / 1073741824.0) * 5);
 }
 
-double noise2d(int x, int y)
+static double noise2d(int x, int y)
 {
 	int tmp = IntergerNoise(x) * 850000;
 
 	return (IntergerNoise(tmp + y + seed));
 }
 
-double Scurve(double x)
-{
-	return ((-2 * x * x * x) + (3 * x * x));	
-}
-
-double lerp(double a, double b, double w)
-{
-	return (a * (1 - w) + b * w);
-}
-
-double smooth(double a, double b, double w)
-{
-	return (lerp(a, b, w * w * (3 - 2 * w)));
-}
-
-double CoherentNoise(double x, double y)
+static double CoherentNoise(double x, double y)
 {
 	int X = (int)(floor(x));
 	int Y = (int)(floor(y));
@@ -54,9 +39,9 @@ double CoherentNoise(double x, double y)
 	double n_d = noise2d(X + 1, Y + 1);
 	double weight_a = x - floor(x);
 	double weight_b = y - floor(y);
-	double noise_a = lerp(n_a, n_b, Scurve(weight_a));
-	double noise_b = lerp(n_c, n_d, Scurve(weight_a));
-	double noise = smooth(noise_a, noise_b, Scurve(weight_b));
+	double noise_a = LERP(n_a, n_b, SCURVE(weight_a));
+	double noise_b = LERP(n_c, n_d, SCURVE(weight_a));
+	double noise = SMOOTH(noise_a, noise_b, SCURVE(weight_b));
 
 	return (noise);
 }
@@ -72,7 +57,7 @@ double *generator(int x, int y, int px, int py)
 		seed = rand() % 3000 + 1;
 	for (int i = 0; i < y; i++) {
 		for (j = 0; j < x; j++) {
-			map[count + j] = CoherentNoise((double)px, (double)py);
+			map[count + j] = CoherentNoise((double)px, (double)py); 
 			px++;
 		}
 		count += j;

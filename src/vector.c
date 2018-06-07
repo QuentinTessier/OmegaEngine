@@ -9,15 +9,15 @@
 #include <stdlib.h>
 #include "engine.h"
 
-sfVector2f *generate_point(void)
+sfVector2f *generate_vector(win_t *win_info)
 {
 	int count = 0;
-	sfVector2f *vector_map = malloc(sizeof(sfVector2f) * (X_V * Y_V));
+	sfVector2f *vector_map = malloc(sizeof(sfVector2f) * win_info->sq_i);
 
-	for (int i = 0; i < Y_V; i++) {
-		for (int j = 0; j < X_V; j++) {
-			vector_map[count].x = j * 64;
-			vector_map[count].y = i * 64;
+	for (int i = 0; i < win_info->sq_y; i++) {
+		for (int j = 0; j < win_info->sq_x; j++) {
+			vector_map[count].x = j * S_V;
+			vector_map[count].y = i * S_V;
 			count++;
 		}
 	}

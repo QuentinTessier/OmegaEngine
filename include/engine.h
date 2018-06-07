@@ -11,34 +11,49 @@
 #include <SFML/Graphics.h>
 #include "player.h"
 
-	#define WIN_WIDTH (1920)
-	#define WIN_HEIGHT (1080)
-	#define X_V (30)
-	#define Y_V (16)
+	#define WIN_WIDTH (1280) 	/* Always of multiple of S_V*/
+	#define WIN_HEIGHT (768)	/* Always of multiple of S_V*/
+	#define S_V (64)
+	#define TEX_NB (5)
 	#define MOV(a) (sfKeyboard_isKeyPressed(a))
+	#define LERP(a, b, w) (a * (1 - w) + b * w)
+	#define SCURVE(x) ((-2 * x * x * x) + (3 * x * x))
+	#define SMOOTH(a, b, w) (LERP(a, b, w * w * (3 - 2 * w)))
+
+typedef struct window_info {
+	int sq_x;
+	int sq_y;
+	int sq_i;
+	sfRenderWindow *w;
+} win_t;
 
 typedef struct texture {
 	sfTexture *t;
 } t_t;
 
-typedef struct display {
-	int x;
-	int y;
-	sfVector2f *vector_map;
-	sfRectangleShape **convex_map;
-	double *generated;
-} dis_t;
+typedef struct map_struct {
+	int w_x;
+	int w_y;
+	sfVector2f *v_map;
+	sfRectangleShape **c_map;
+	double *d_map;
+	t_t *tex;
+} map_t;
 
-sfVector2f *generate_point();
-sfRectangleShape **generate_convex(dis_t *display);
-void display_convex(dis_t *display, sfRenderWindow *window);
-void update_shape(dis_t *display);
+sfVector2f *generate_vector(win_t *);
+sfRectangleShape **generate_convex(win_t *, sfVector2f *);
+void display_convex(map_t *display, win_t *);
+void update_shape(map_t *display);
 double *generator(int, int, int, int);
-int check_world_position(p_t *player, dis_t *display);
-int get_map_position(p_t *player, dis_t *display);
+int check_world_position(win_t *, p_t *, map_t *);
+sfVector2f get_map_position(win_t *, p_t *, map_t *);
 t_t *create_texture(void);
-void update_shape_texture(dis_t *display, t_t *tex);
-void camera_bind_to_player(sfRenderWindow *window, dis_t *display, p_t *player, t_t *tex);
-void simple_movement(sfRenderWindow *window, dis_t *display, p_t *player, t_t *tex);
+void update_shape_texture(win_t *, map_t *, t_t *);
+void camera_bind_to_player(win_t *, map_t *display, p_t *player, t_t *tex);
+void camera_separeted_player(win_t *, map_t *, p_t *, t_t *);
+void simple_movement(sfRenderWindow *window, map_t *display, p_t *player, t_t *tex);
+double perlin(int octaves, double freq, double pers, double x, double y);
+p_t init_player(win_t *);
+
 
 #endif /* !ENGINE_H_ */
