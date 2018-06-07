@@ -14,6 +14,6 @@ Few upcoming features :
 	
 	Few more way to handle the camera.
 
-	Able to rezise the window, and choose size/number of squares to render.
+	Data struct for monsters/items.
 
 	System of menus and scenes.
