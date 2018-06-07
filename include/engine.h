@@ -11,33 +11,43 @@
 #include <SFML/Graphics.h>
 #include "player.h"
 
-	#define WIN_WIDTH (1280) 	/* Always of multiple of S_V*/
-	#define WIN_HEIGHT (768)	/* Always of multiple of S_V*/
-	#define S_V (64)
+/* Window and squares infos */
+
+	#define WIN_WIDTH (1280) 	// Always of multiple of S_V
+	#define WIN_HEIGHT (768)	// Always a multiple of S_V
+	#define S_V (64)		// Size of square in pixels (ex : 64x64)
 	#define TEX_NB (5)
+
+/* SFML event macro */
+
 	#define MOV(a) (sfKeyboard_isKeyPressed(a))
-	#define LERP(a, b, w) (a * (1 - w) + b * w)
-	#define SCURVE(x) ((-2 * x * x * x) + (3 * x * x))
-	#define SMOOTH(a, b, w) (LERP(a, b, w * w * (3 - 2 * w)))
+
+/* Math macro for the CoherentNoise */
+
+	#define LERP(a, b, w) (a * (1 - w) + b * w) 			// Linear_interpolation
+	#define SCURVE(x) ((-2 * x * x * x) + (3 * x * x)) 		// Scurve smoothing curve
+	#define SMOOTH(a, b, w) (LERP(a, b, w * w * (3 - 2 * w))) 	// Another smoothing curve
+
+/* Window and Map Structs */
 
 typedef struct window_info {
-	int sq_x;
-	int sq_y;
-	int sq_i;
-	sfRenderWindow *w;
+	int sq_x;		// Number of squares in x
+	int sq_y;		// Number of squares in y
+	int sq_i;		// Squares max index
+	sfRenderWindow *w;	// RenderWindow
 } win_t;
 
 typedef struct texture {
-	sfTexture *t;
+	sfTexture *t; 		// Array of struct containing textures
 } t_t;
 
 typedef struct map_struct {
-	int w_x;
-	int w_y;
-	sfVector2f *v_map;
-	sfRectangleShape **c_map;
-	double *d_map;
-	t_t *tex;
+	int w_x;			// World Position x
+	int w_y;			// World Position y
+	sfVector2f *v_map;		// Vector map to place the squares
+	sfRectangleShape **c_map;	// The squares
+	double *d_map;			// Double map filled with the generator output
+	t_t *tex;			// Array of texture
 } map_t;
 
 sfVector2f *generate_vector(win_t *);
@@ -54,6 +64,6 @@ void camera_separeted_player(win_t *, map_t *, p_t *, t_t *);
 void simple_movement(sfRenderWindow *window, map_t *display, p_t *player, t_t *tex);
 double perlin(int octaves, double freq, double pers, double x, double y);
 p_t init_player(win_t *);
-
+map_t init_map(win_t *);
 
 #endif /* !ENGINE_H_ */
