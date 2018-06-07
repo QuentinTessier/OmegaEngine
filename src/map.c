@@ -17,6 +17,6 @@ map_t init_map(win_t *win_info)
 	map.w_y = 0;
 	map.d_map = generator(win_info->sq_x, win_info->sq_y, 0, 0);
 	map.c_map = generate_convex(win_info, map.v_map);
-	map.tex = create_texture();
+	map.tex = init_texture();
 	return (map);
 }

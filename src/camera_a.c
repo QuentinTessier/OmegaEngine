@@ -64,7 +64,7 @@ static void modular_event_player(sfKeyCode code, p_t *player)
 	return;
 }
 
-void camera_separeted_player(win_t *win_info, map_t *map, p_t *player, t_t *tex)
+void camera_separeted_player(win_t *win_info, map_t *map, p_t *player)
 {
 	sfEvent event;
 	int index = 0;
@@ -79,7 +79,7 @@ void camera_separeted_player(win_t *win_info, map_t *map, p_t *player, t_t *tex)
 	}
 	if (index == 0) {
 		map->d_map = generator(win_info->sq_x, win_info->sq_y, map->w_x, map->w_y);
-		update_shape_texture(win_info, map, tex);
+		update_shape_texture(win_info, map);
 	}
 	return;
 }

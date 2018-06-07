@@ -5,26 +5,23 @@
 ** main
 */
 
-#include <time.h>
 #include <stdlib.h>
 #include "engine.h"
 
 
 
-/*void free_all(dis_t *display, p_t *player, t_t *tex)
+void free_all(win_t *win_info, map_t *map, p_t *player)
 {
-	free(display->generated);
-	free(display->vector_map);
-	for (int i = 0; i < (X_V * Y_V); i++) {
-		sfRectangleShape_destroy(display->convex_map[i]);
-	}
-	for (int i = 0; i < 3; i++)
-		sfTexture_destroy(tex[i].t);
-	free(tex);
+	free(map->d_map);
+	free(map->v_map);
+	for (int i = 0; i < win_info->sq_i; i++)
+		sfRectangleShape_destroy(map->c_map[i]);
+	free(map->c_map);
+	for (int i = 0; i < TEX_NB; i++)
+		sfTexture_destroy(map->tex.t[i]);
 	sfSprite_destroy(player->s);
 	sfTexture_destroy(player->t);
-	free(display->convex_map);
-}*/
+}
 
 win_t init_window(char *name)
 {
@@ -51,17 +48,12 @@ void quit_event(win_t *win_info)
 int main()
 {
 	win_t win_info = init_window("ENGINE");
-	map_t map;
+	map_t map = init_map(&win_info);
 	p_t player = init_player(&win_info);
-	map.v_map = generate_vector(&win_info);
-	map.w_x = 0;
-	map.w_y = 0;
-	map.d_map = generator(win_info.sq_x, win_info.sq_y, 0, 0);
-	map.c_map = generate_convex(&win_info, map.v_map);
-	map.tex = create_texture();
-	update_shape_texture(&win_info, &map, map.tex);
+
+	update_shape_texture(&win_info, &map);
 	while (sfRenderWindow_isOpen(win_info.w)) {
-		camera_separeted_player(&win_info, &map, &player,map.tex);
+		camera_separeted_player(&win_info, &map, &player);
 		sfRenderWindow_clear(win_info.w, sfBlack);
 		display_convex(&map, &win_info);
 		if (check_world_position(&win_info, &player, &map) == 1)
@@ -69,5 +61,6 @@ int main()
 		sfRenderWindow_display(win_info.w);
 	}
 	sfRenderWindow_destroy(win_info.w);
+	free_all(&win_info, &map, &player);
 	return (0);
 }

@@ -14,33 +14,35 @@ sfTexture *get_texture(double value, t_t *tex)
 	if (value < 0)
 		value *= -1.0;
 	if (value < 1.0)
-		return (tex[0].t);
+		return (tex->t[0]);
 	if (value < 1.5)
-		return (tex[1].t);
+		return (tex->t[1]);
 	if (value < 2.5)
-		return (tex[2].t);
+		return (tex->t[2]);
 	if (value < 3.0)
-		return (tex[3].t);
-	return (tex[4].t);
+		return (tex->t[3]);
+	return (tex->t[4]);
 }
 
-t_t *create_texture(void)
+t_t init_texture(void)
 {
-	t_t *tex = malloc(sizeof(t_t) * TEX_NB);
+	t_t tex;
 	sfIntRect r = {0, 0, S_V, S_V};
 
-	tex[0].t = sfTexture_createFromFile("./assets/rock_tiles.png", &r);
-	tex[1].t = sfTexture_createFromFile("./assets/tile.png", &r);	
-	tex[2].t = sfTexture_createFromFile("./assets/dirt_tile.png", &r);
-	tex[3].t = sfTexture_createFromFile("./assets/tile.png", &r);
-	tex[4].t = sfTexture_createFromFile("./assets/grass_tile.png", &r);
+	tex.t = malloc(sizeof(sfTexture *) * TEX_NB);
+
+	tex.t[0] = sfTexture_createFromFile("./assets/tile_rock.png", &r);
+	tex.t[1] = sfTexture_createFromFile("./assets/tile_blank.png", &r);
+	tex.t[2] = sfTexture_createFromFile("./assets/tile_dirt.png", &r);
+	tex.t[3] = sfTexture_createFromFile("./assets/tile_blank.png", &r);
+	tex.t[4] = sfTexture_createFromFile("./assets/tile_grass.png", &r);
 	return (tex);
 }
 
-void update_shape_texture(win_t *win_info, map_t *map, t_t *tex)
+void update_shape_texture(win_t *win_info, map_t *map)
 {
 	for (int i = 0; i < win_info->sq_i; i++) {
-		sfRectangleShape_setTexture(map->c_map[i], get_texture(map->d_map[i], tex), sfFalse);
+		sfRectangleShape_setTexture(map->c_map[i], get_texture(map->d_map[i], &map->tex), sfFalse);
 	}
 	return;
 }
