@@ -53,7 +53,7 @@ int main()
 
 	update_shape_texture(&win_info, &map);
 	while (sfRenderWindow_isOpen(win_info.w)) {
-		camera_separeted_player(&win_info, &map, &player);
+		event_camera(&win_info, &map);
 		sfRenderWindow_clear(win_info.w, sfBlack);
 		display_convex(&map, &win_info);
 		if (check_world_position(&win_info, &player, &map) == 1)
