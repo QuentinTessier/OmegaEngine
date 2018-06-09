@@ -1,5 +1,12 @@
 # CSFML_2D_ENGINE
 
+/!\ Changing Objectif /!\
+
+I will make the all thing from a new base to for the engine to be able to render not just a simple map but nearly anything you'd like (in CSFML), have customizable controls,
+and many other options for it to be way more usefull than it is right now.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Welcome !
 
 Here you will find my project for the next 4 months, I plan on making a small engine using the CSFML library.
