@@ -5,62 +5,35 @@
 ** main
 */
 
+#include <SFML/Graphics.h>
 #include <stdlib.h>
 #include "engine.h"
 
-
-
-void free_all(win_t *win_info, map_t *map, p_t *player)
+void init_window(wc_t *w_info)
 {
-	free(map->d_map);
-	free(map->v_map);
-	for (int i = 0; i < win_info->sq_i; i++)
-		sfRectangleShape_destroy(map->c_map[i]);
-	free(map->c_map);
-	for (int i = 0; i < TEX_NB; i++)
-		sfTexture_destroy(map->tex.t[i]);
-	sfSprite_destroy(player->s);
-	sfTexture_destroy(player->t);
-}
-
-win_t init_window(char *name)
-{
-	win_t win_info;
-	sfVideoMode mode = {WIN_WIDTH, WIN_HEIGHT, 32};
-
-	win_info.sq_x = WIN_WIDTH / S_V;
-	win_info.sq_y = WIN_HEIGHT / S_V;
-	win_info.sq_i = win_info.sq_y * win_info.sq_x;
-	win_info.w = sfRenderWindow_create(mode, name, sfClose, NULL);
-	return (win_info);
-}
-
-void quit_event(win_t *win_info)
-{
-	sfEvent event;
-	while (sfRenderWindow_pollEvent(win_info->w, &event)) {
-		if (event.type == sfEvtClosed)
-			sfRenderWindow_close(win_info->w);
-	}
+	w_info->v = (sfVideoMode){W_WIDTH, W_HEIGHT, 32};
+	w_info->w = sfRenderWindow_create(w_info->v, W_NAME, sfClose, NULL);
+	w_info->r = sfRectangleShape_create();
+	sfRectangleShape_setSize(w_info->r, (sfVector2f){W_WIDTH, W_HEIGHT});
+	sfRectangleShape_setPosition(w_info->r, (sfVector2f){0, 0});
 	return;
 }
 
 int main()
 {
-	win_t win_info = init_window("ENGINE");
-	map_t map = init_map(&win_info);
-	p_t player = init_player(&win_info);
+	wc_t w_info;
+	spr_t *background = load_tab_sprite(3, "./assets/", backvarray);
+	init_window(&w_info);
 
-	update_shape_texture(&win_info, &map);
-	while (sfRenderWindow_isOpen(win_info.w)) {
-		event_camera(&win_info, &map);
-		sfRenderWindow_clear(win_info.w, sfBlack);
-		display_convex(&map, &win_info);
-		if (check_world_position(&win_info, &player, &map) == 1)
-			render_player(get_map_position(&win_info, &player, &map), win_info.w, &player);
-		sfRenderWindow_display(win_info.w);
+	while (sfRenderWindow_isOpen(w_info.w)) {
+		sfEvent event;
+		while (sfRenderWindow_pollEvent(w_info.w, &event))
+			if (event.type == sfEvtClosed)
+				sfRenderWindow_close(w_info.w);
+		sfRenderWindow_clear(w_info.w, sfBlack);
+		RD_SFT_SP_ST(3, &w_info, background);
+		sfRenderWindow_display(w_info.w);
 	}
-	sfRenderWindow_destroy(win_info.w);
-	free_all(&win_info, &map, &player);
+	sfRenderWindow_destroy(w_info.w);
 	return (0);
 }

@@ -5,7 +5,9 @@
 ## makefile
 ##
 
-SRC     =	$(wildcard src/*.c)
+SRC     =	$(wildcard src/*.c)			\
+		$(wildcard src/render_component/*.c)	\
+		$(wildcard src/load_component/*.c)	\
 
 OBJ     =       $(SRC:.c=.o)
 
