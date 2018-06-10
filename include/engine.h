@@ -35,7 +35,9 @@ typedef struct spr_component {
 
 spr_t load_hero_sprite();
 void update_sprite(spr_t *sprite, sfIntRect new_rect);
-spr_t *load_tab_sprite(size_t nb, char *path, const sfVector2f *varray);
+spr_t *load_back_sprite(size_t nb, char *path, const sfVector2f *varray);
+spr_t *load_middle_sprite(size_t nb, char *path, const sfVector2f *varray);
+spr_t *load_fore_sprite(size_t nb, char *path, const sfVector2f *varray);
 void render_tab_struct(size_t length, wc_t *, spr_t *sprite);
 int check_window_sprite(sfRectangleShape *win_r, sfSprite *s);
 

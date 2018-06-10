@@ -21,8 +21,7 @@ void init_window(wc_t *w_info)
 
 int main()
 {
-	wc_t w_info;
-	spr_t *background = load_tab_sprite(3, "./assets/", backvarray);
+	wc_t w_info;	
 	init_window(&w_info);
 
 	while (sfRenderWindow_isOpen(w_info.w)) {
@@ -30,8 +29,7 @@ int main()
 		while (sfRenderWindow_pollEvent(w_info.w, &event))
 			if (event.type == sfEvtClosed)
 				sfRenderWindow_close(w_info.w);
-		sfRenderWindow_clear(w_info.w, sfBlack);
-		RD_SFT_SP_ST(3, &w_info, background);
+		sfRenderWindow_clear(w_info.w, sfBlack);		
 		sfRenderWindow_display(w_info.w);
 	}
 	sfRenderWindow_destroy(w_info.w);

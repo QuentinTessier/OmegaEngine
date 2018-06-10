@@ -27,7 +27,7 @@ char *str_append(const char *dest, const char *app)
 	return (result);
 }
 
-spr_t *load_tab_sprite(size_t nb, char *path, const sfVector2f *varray)
+spr_t *load_back_sprite(size_t nb, char *path, const sfVector2f *varray)
 {
 	spr_t * tab_spr = malloc(sizeof(spr_t) * nb);
 	size_t i = 0;
@@ -38,6 +38,40 @@ spr_t *load_tab_sprite(size_t nb, char *path, const sfVector2f *varray)
 		tab_spr[i].p = varray[i];
 		tab_spr[i].t = sfTexture_createFromFile(str_append(path, strdup(BACKARRAY(i))), &tab_spr[i].r);
 		sfSprite_setTexture(tab_spr[i].s, tab_spr[i].t, sfFalse);
+		sfSprite_setPosition(tab_spr[i].s, tab_spr[i].p);
+		i++;
+	}
+	return (tab_spr);
+}
+
+spr_t *load_middle_sprite(size_t nb, char *path, const sfVector2f *varray)
+{
+	spr_t *tab_spr = malloc(sizeof(spr_t) * nb);
+	size_t i = 0;
+
+	while (i < nb) {
+		tab_spr[i].s = sfSprite_create();
+		tab_spr[i].r = all_img;
+		tab_spr[i].p = varray[i];
+		tab_spr[i].t = sfTexture_createFromFile(str_append(path, strdup(MIDARRAY(i))), &tab_spr[i].r);
+		sfSprite_setTexture(tab_spr[i].s, tab_spr[i].t, sfFalse);		
+		sfSprite_setPosition(tab_spr[i].s, tab_spr[i].p);
+		i++;
+	}
+	return (tab_spr);
+}
+
+spr_t *load_fore_sprite(size_t nb, char *path, const sfVector2f *varray)
+{
+	spr_t *tab_spr = malloc(sizeof(spr_t) * nb);
+	size_t i = 0;
+
+	while (i < nb) {
+		tab_spr[i].s = sfSprite_create();
+		tab_spr[i].r = all_img;
+		tab_spr[i].p = varray[i];
+		tab_spr[i].t = sfTexture_createFromFile(str_append(path, strdup(FOREARRAY(i))), &tab_spr[i].r);
+		sfSprite_setTexture(tab_spr[i].s, tab_spr[i].t, sfFalse);		
 		sfSprite_setPosition(tab_spr[i].s, tab_spr[i].p);
 		i++;
 	}
