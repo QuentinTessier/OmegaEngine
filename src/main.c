@@ -9,29 +9,28 @@
 #include <stdlib.h>
 #include "engine.h"
 
-void init_window(wc_t *w_info)
+wc_t init_window(unsigned int x, unsigned int y, char *name)
 {
-	w_info->v = (sfVideoMode){W_WIDTH, W_HEIGHT, 32};
-	w_info->w = sfRenderWindow_create(w_info->v, W_NAME, sfClose, NULL);
-	w_info->r = sfRectangleShape_create();
-	sfRectangleShape_setSize(w_info->r, (sfVector2f){W_WIDTH, W_HEIGHT});
-	sfRectangleShape_setPosition(w_info->r, (sfVector2f){0, 0});
-	return;
+        wc_t win_info;
+        
+        win_info.v = (sfVideoMode){x, y, 32};
+        win_info.w = sfRenderWindow_create(win_info.v ,name, sfClose, NULL);
+        win_info.r = sfRectangleShape_create();
+        sfRectangleShape_setSize(win_info.r, (sfVector2f){x, y});
+        return (win_info);
 }
 
-int main()
-{
-	wc_t w_info;	
-	init_window(&w_info);
+int main(void) {
+        wc_t win_info = init_window(1280, 720, "NAME");
 
-	while (sfRenderWindow_isOpen(w_info.w)) {
-		sfEvent event;
-		while (sfRenderWindow_pollEvent(w_info.w, &event))
-			if (event.type == sfEvtClosed)
-				sfRenderWindow_close(w_info.w);
-		sfRenderWindow_clear(w_info.w, sfBlack);		
-		sfRenderWindow_display(w_info.w);
-	}
-	sfRenderWindow_destroy(w_info.w);
-	return (0);
+        while (sfRenderWindow_isOpen(win_info.w)) {
+                sfEvent event;
+                while (sfRenderWindow_pollEvent(win_info.w, &event)) {
+                        if (event.type == sfEvtClosed)
+                                sfRenderWindow_close(win_info.w);
+                }
+                sfRenderWindow_clear(win_info.w, sfBlack);
+                sfRenderWindow_display(win_info.w);
+        }
+        return (1);
 }
