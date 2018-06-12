@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include "engine.h"
 
-void sf_render(sfRenderWindow *window, size_t elements, ...)
+void sf_render(wc_t *win_info, size_t elements, ...)
 {
 	va_list list;
 	size_t i = 0;
@@ -20,28 +20,28 @@ void sf_render(sfRenderWindow *window, size_t elements, ...)
 		TYPE a = va_arg(list, TYPE);
 		switch (a) {
 			case SF_RESH :
-				sfRenderWindow_drawRectangleShape(window, va_arg(list, sfRectangleShape *), NULL);
+				Call_sfRectShape(win_info, va_arg(list, sfRectangleShape *), NULL);
 				break;
 			case SF_SPRI :
-				sfRenderWindow_drawSprite(window, va_arg(list, sfSprite *), NULL);
+				Call_sfSprite(win_info, va_arg(list, sfSprite *), NULL);
 				break;
 			case SF_CISH :
-				sfRenderWindow_drawCircleShape(window, va_arg(list, sfCircleShape *), NULL);
+				Call_sfCircleShape(win_info, va_arg(list, sfCircleShape *), NULL);
 				break;
 			case SF_COSH :
-				sfRenderWindow_drawConvexShape(window, va_arg(list, sfConvexShape *), NULL);
+				Call_sfConvexShape(win_info, va_arg(list, sfConvexShape *), NULL);
 				break;
 			case SF_SHAP :
-				sfRenderWindow_drawShape(window, va_arg(list, sfShape *), NULL);
+				Call_sfShape(win_info, va_arg(list, sfShape *), NULL);
 				break;
 			case SF_VERA :
-				sfRenderWindow_drawVertexArray(window, va_arg(list, sfVertexArray *), NULL);
+				sfRenderWindow_drawVertexArray(win_info->w, va_arg(list, sfVertexArray *), NULL);
 				break;
 			case SF_TEXT :
-				sfRenderWindow_drawText(window, va_arg(list, const sfText *), NULL);
+				Call_sfText(win_info, va_arg(list, const sfText *), NULL);
 				break;
 			/*case SF_PRIM :
-				sfRenderWindow_drawPrimitives(window, va_arg(list, sfPrimitiveType *), NULL);
+				sfRenderWindow_drawPrimitives(win_info, va_arg(list, sfPrimitiveType *), NULL);
 				break;*/
 			default :
 				va_arg(list, void *);
