@@ -18,6 +18,12 @@ typedef struct win_component {
 	sfRectangleShape *r;
 } wc_t;
 
+typedef struct sprite_component {
+	sfSprite *s;
+	sfTexture *t;
+	sfVector2f p;
+} spr_t;
+
 typedef enum types {
 	SF_SPRI,
 	SF_SHAP,
@@ -39,5 +45,10 @@ void Call_sfConvexShape(wc_t *win_info, sfConvexShape *object, sfRenderStates *s
 void Call_sfShape(wc_t *win_info, sfShape *object, sfRenderStates *state);
 void Call_sfText(wc_t *win_info, const sfText *object, sfRenderStates *state);
 void Call_sfSprite(wc_t *win_info, sfSprite *object, sfRenderStates *state);
+
+
+void move_rectSprite(sfSprite *s, sfIntRect new_rect);
+spr_t new_sprite(char *path, sfIntRect size, sfVector2f pos);
+
 
 #endif /* !ENGINE_H_ */
