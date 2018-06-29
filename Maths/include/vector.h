@@ -8,5 +8,13 @@
 #ifndef VECTOR_H_
 	#define VECTOR_H_
 
+/* Booléen */
+
+typedef enum Bool {
+	MTrue = 0,
+	MFalse = !MTrue
+} MBool;
+
+/* ------- */
 
 #endif /* !VECTOR_H_ */
