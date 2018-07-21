@@ -5,7 +5,8 @@
 ** gravity
 */
 
-#include <vector.h>
+#include "MBool.h"
+#include "vector.h"
 
 MBool Mgravity(void *Object, void *Simulation_info)
 {

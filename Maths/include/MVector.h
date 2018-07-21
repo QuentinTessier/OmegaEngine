@@ -8,13 +8,9 @@
 #ifndef VECTOR_H_
 	#define VECTOR_H_
 
-/* Booléen */
-
-typedef enum Bool {
-	MTrue = 0,
-	MFalse = !MTrue
-} MBool;
-
-/* ------- */
+typedef struct M_Vector {
+	double x;
+	double y;
+} MVector;
 
 #endif /* !VECTOR_H_ */

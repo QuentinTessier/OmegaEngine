@@ -1,26 +1,31 @@
 # CSFML_2D_ENGINE
 
-/!\ Changing Objectif /!\
-
-I will make the all thing from a new base to for the engine to be able to render not just a simple map but nearly anything you'd like (in CSFML), have customizable controls,
-and many other options for it to be way more usefull than it is right now.
+This is a little addon for CSFML so it's easier to use. I mostly add basic functionnality.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Welcome !
 
-Here you will find my project for the next 4 months, I plan on making a small engine using the CSFML library.
+Here you will find my project for the next 4 months, I plan on making smalls addons on the CSFML library.
 
-It will be a 2D tile based engine, where the player can roam in an "endless world" and could figth monsters and explore.
-If you are interrest in the understanding some part of the code or anything related to the engine you can contact me (Email adresse on Github's profil).
+It focuses on the 2D part of CSFML.
 
 My goal with this engine is to be able to use it for any up coming game project at Epitech. So I can produce game faster and waste less time on rendering processes.
 When I have a few thing ready in the engine, I will document all file so it's easier to understand how it works.
 
+
+All ready in :
+
+	FlipBooks for sprites (using sprite sheets)
+
+	Pause the game using a clock
+
+	Rendering_stack struct and functions
+
 Few upcoming features :
 	
-	Few more way to handle the camera.
+	Fully functionnable Rendering_Stack
 
-	Data struct for monsters/items.
+	Input handling using events
 
-	System of menus and scenes.
+	Collision engine

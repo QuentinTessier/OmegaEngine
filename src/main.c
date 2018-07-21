@@ -22,6 +22,9 @@ wc_t init_window(unsigned int x, unsigned int y, char *name)
 
 int main(void) {
         wc_t win_info = init_window(1280, 720, "NAME");
+        _sprite_t new_sprite;
+        sprite_flipbook(&new_sprite, 2, 2, (sfVector2f){0, 0}, (sfVector2f){64, 64}, 2, (sfVector2f){0, 128}, (sfVector2f){64, 64});
+        sprite_create(&new_sprite, "./assets/t.png", (sfVector2f){0, 0});
 
         while (sfRenderWindow_isOpen(win_info.w)) {
                 sfEvent event;
@@ -30,7 +33,8 @@ int main(void) {
                                 sfRenderWindow_close(win_info.w);
                 }
                 sfRenderWindow_clear(win_info.w, sfBlack);
+                sfRenderWindow_drawSprite(win_info.w, new_sprite.s, NULL);
                 sfRenderWindow_display(win_info.w);
         }
-        return (1);
+        return (0);
 }

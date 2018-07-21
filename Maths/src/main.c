@@ -5,6 +5,10 @@
 ** main
 */
 
+#include "MBool.h"
+#include "MObject.h"
+#include "vector.h"
+
 int main(void)
 {
 	return (0);

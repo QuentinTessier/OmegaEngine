@@ -10,7 +10,8 @@
 
 #include <sys/types.h>
 #include <SFML/Graphics.h>
-#include "render.h"
+#include "sprite.h"
+#include "data_struct.h"
 
 typedef struct win_component {
 	sfRenderWindow *w;
@@ -18,37 +19,12 @@ typedef struct win_component {
 	sfRectangleShape *r;
 } wc_t;
 
-typedef struct sprite_component {
-	sfSprite *s;
-	sfTexture *t;
-	sfVector2f p;
-} spr_t;
+void sprite_create(_sprite_t *sprite, char *path, sfVector2f position);
+void sprite_flipbook(_sprite_t *sprite, size_t nb, ...);
 
-typedef enum types {
-	SF_SPRI,
-	SF_SHAP,
-	SF_CISH,
-	SF_COSH,
-	SF_RESH,
-	SF_VERA,
-	SF_PRIM,
-	SF_TEXT
-
-} TYPE;
-
-void sf_render(wc_t *, size_t elements, ...);
-sfBool check_inside_window(sfRectangleShape *window, sfFloatRect object);
-
-void Call_sfRectShape(wc_t *win_info, sfRectangleShape *object, sfRenderStates *state);
-void Call_sfCircleShape(wc_t *win_info, sfCircleShape *object, sfRenderStates *state);
-void Call_sfConvexShape(wc_t *win_info, sfConvexShape *object, sfRenderStates *state);
-void Call_sfShape(wc_t *win_info, sfShape *object, sfRenderStates *state);
-void Call_sfText(wc_t *win_info, const sfText *object, sfRenderStates *state);
-void Call_sfSprite(wc_t *win_info, sfSprite *object, sfRenderStates *state);
-
-
-void move_rectSprite(sfSprite *s, sfIntRect new_rect);
-spr_t new_sprite(char *path, sfIntRect size, sfVector2f pos);
+void pause_game_for_duration(float duration);
+void create_stack(render_stack *stack, size_t size);
+void push(render_stack *stack, void *data, data_type type);
 
 
 #endif /* !ENGINE_H_ */
