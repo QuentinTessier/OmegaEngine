@@ -7,34 +7,21 @@
 
 #include <SFML/Graphics.h>
 #include <stdlib.h>
-#include "engine.h"
+#include <stdio.h>
+#include <sys/sysinfo.h>
+#include "Root.h"
+#include "Scene.h"
 
-wc_t init_window(unsigned int x, unsigned int y, char *name)
+int main(void)
 {
-        wc_t win_info;
-        
-        win_info.v = (sfVideoMode){x, y, 32};
-        win_info.w = sfRenderWindow_create(win_info.v ,name, sfClose, NULL);
-        win_info.r = sfRectangleShape_create();
-        sfRectangleShape_setSize(win_info.r, (sfVector2f){x, y});
-        return (win_info);
-}
+	root_t game;
+	sfVector2u game_size = {1290, 720};
+	create_root(&game, game_size, "NAME", sfClose | sfResize);
+	game.CreateSceneGraph(&game, 2);
 
-int main(void) {
-        wc_t win_info = init_window(1280, 720, "NAME");
-        _sprite_t new_sprite;
-        sprite_flipbook(&new_sprite, 2, 2, (sfVector2f){0, 0}, (sfVector2f){64, 64}, 2, (sfVector2f){0, 128}, (sfVector2f){64, 64});
-        sprite_create(&new_sprite, "./assets/t.png", (sfVector2f){0, 0});
+	Create_scene(&game.s_graph[0], 10);
+	Create_scene(&game.s_graph[1], 20);
+	game.WindowLoop(&game);
 
-        while (sfRenderWindow_isOpen(win_info.w)) {
-                sfEvent event;
-                while (sfRenderWindow_pollEvent(win_info.w, &event)) {
-                        if (event.type == sfEvtClosed)
-                                sfRenderWindow_close(win_info.w);
-                }
-                sfRenderWindow_clear(win_info.w, sfBlack);
-                sfRenderWindow_drawSprite(win_info.w, new_sprite.s, NULL);
-                sfRenderWindow_display(win_info.w);
-        }
-        return (0);
+	return (0);
 }

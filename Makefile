@@ -6,8 +6,6 @@
 ##
 
 SRC     =	$(wildcard src/*.c)		\
-		$(wildcard src/render/*.c)	\
-		$(wildcard src/sprite/*.c)	\
 
 OBJ     =       $(SRC:.c=.o)
 
