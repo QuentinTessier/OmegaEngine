@@ -9,17 +9,20 @@
 
 #include <SFML/Graphics.h>
 
+#include "Object.h"
+
 typedef struct scene scene_t;
 typedef struct root root_t;
 
-typedef void (*s_InitItem_t)(scene_t **self);
-typedef void (*s_DrawItem_t)(const root_t *root, scene_t *self);
+typedef object_t *(*s_AddSortedObj_t)(object_t **l_ob, int depth);
 
 struct scene {
-	sfCircleShape *item;
+	unsigned int count;
 
-	s_DrawItem_t DrawItem;
+	object_t **l_ob;
+
+	s_AddSortedObj_t AddSortedObject;
 };
 
-void Create_scene(scene_t **self, float raduis);
-void scene_DrawItem(const root_t *root, scene_t *scene);
+void Create_scene(scene_t **self, int count);
+object_t *s_AddSortedObject(object_t **l_ob, int depth);

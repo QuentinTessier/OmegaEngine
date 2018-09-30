@@ -30,7 +30,6 @@ void root_WindowLoop(root_t *self)
 		while (sfRenderWindow_pollEvent(self->window, &event))
 			self->EventHandler(self, event);
 		sfRenderWindow_clear(self->window, sfBlack);
-		self->s_graph[self->curr_graph]->DrawItem(self, self->s_graph[self->curr_graph]);
 		sfRenderWindow_display(self->window);
 	}
 }
@@ -41,6 +40,7 @@ void root_CreateSceneGraph(root_t *self, int s_count)
 		self->s_graph = malloc(sizeof(scene_t *) * s_count);
 		for (int i = 0; i < s_count; i++)
 			self->s_graph[i] = NULL;
+		self->s_count = s_count;
 	}
 }
 
