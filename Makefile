@@ -1,6 +1,6 @@
 ##
 ## EPITECH PROJECT, 2017
-## matchstick
+## Makefile
 ## File description:
 ## makefile
 ##
@@ -13,10 +13,14 @@ NAME    =	ENGINE_2D
 
 CFLAGS	=	-Wall -Wextra -Iinclude
 
+CSFML	=	-lcsfml-window -lcsfml-graphics -lcsfml-audio -lcsfml-system
+
+MATH 	=	-lm
+
 all:	$(NAME)
 
 $(NAME):	$(OBJ)
-	gcc -o $(NAME) $(OBJ) -lc_graph_prog -lm
+	gcc -o $(NAME) $(OBJ) $(CSFML) $(MATH)
 
 debug:  CFLAGS += -g
 debug:	re clean
@@ -26,6 +30,9 @@ clean:
 
 fclean:
 	rm -f $(NAME) $(OBJ)
+
+cleanvg:
+	rm -f vgcore*
 
 re:     fclean all
 

@@ -1,42 +1,23 @@
 /*
 ** EPITECH PROJECT, 2018
-** Infinite_World
+** CSFML_2D_ENGINE
 ** File description:
 ** main
 */
 
-#include <SFML/Graphics.h>
-#include <stdlib.h>
 #include <stdio.h>
-#include <sys/sysinfo.h>
-#include "Root.h"
-#include "Scene.h"
-#include "Object.h"
+#include <stdlib.h>
+#include "root.h"
+#include "object.h"
+#include "error.h"
 
-int main(void)
+int main()
 {
-	root_t game;
-	sfVector2u game_size = {1280, 720};
-	create_root(&game, game_size, "NAME", sfClose);
-	game.CreateSceneGraph(&game, 1);
-	Create_scene(&game.s_graph[0], 3);
-	scene_t *s = game.s_graph[0];
-	object_t *test = OB_ERROR(s->AddSortedObject(&s->l_ob[0], 10))->AsTexture(&test, "assets/cube.png", NULL);
-	//game.WindowLoop(&game);
+    root_t root = create_root(root, (sfVector2u){1280, 720}, "NAME", sfClose);
 
-	return (0);
+    root.create_scene_array(&root, 1, 0)->add_scene_index(&root, 0, create_scene());
+    root.s_graph[0]->scene_add_object(root.s_graph[0], create_object(1));
+
+    root.launch_loop(&root);
+    return (0);
 }
-
-/*
-
-simple linked list order on rendering depth
-
-0 --------------------------- 5000 >|_|
-
-AddSortedObject(Headref **, Node *);
-
-Renderer goes down the linked list
-
-object_t *test = OB_ERROR(s->AddSortedObject(&s->l_ob[0], 10))->Bool_Render(&test);
-
-*/
