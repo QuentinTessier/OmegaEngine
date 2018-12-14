@@ -1,3 +1,0 @@
-# CSFML_2D_RENDERER
-
-	WIP

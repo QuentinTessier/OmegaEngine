@@ -1,39 +1,51 @@
 ##
-## EPITECH PROJECT, 2017
-## Makefile
+## EPITECH PROJECT, 2018
+## Engine
 ## File description:
-## makefile
+## Makefile
 ##
 
-SRC     =	$(wildcard src/*.c)		\
+NAME		=	OmegaEngine
 
-OBJ     =       $(SRC:.c=.o)
+CC			=	gcc
 
-NAME    =	ENGINE_2D
+INCLUDE		=	-Iinclude
 
-CFLAGS	=	-Wall -Wextra -Iinclude
+CSFML		=	-lcsfml-graphics -lcsfml-window -lcsfml-audio -lcsfml-system -lpthread
 
-CSFML	=	-lcsfml-window -lcsfml-graphics -lcsfml-audio -lcsfml-system
+MATH		=	-lm
 
-MATH 	=	-lm
+CFLAGS  	=	-Wall -Wextra -std=c11 $(INCLUDE) $(CSFML) $(MATH)
 
-all:	$(NAME)
+ENGINE_SRC	=	./src/engine/utility/vector/vector_find_item.c				\
+				./src/engine/utility/vector/vector_set.c					\
+				./src/engine/utility/vector/vector_access.c					\
+				./src/engine/utility/vector/vector_iterate.c				\
+				./src/engine/utility/vector/vector_mutation_a.c				\
+				./src/engine/utility/vector/vector_construct.c				\
+				./src/engine/utility/vector/vector_destruct.c				\
+				./src/engine/utility/vector/internal_vector.c				\
+				./src/engine/message/queue.c
 
-$(NAME):	$(OBJ)
-	gcc -o $(NAME) $(OBJ) $(CSFML) $(MATH)
+SRC			=	src/main.c			\
+				$(ENGINE_SRC)
 
-debug:  CFLAGS += -g
-debug:	re clean
+OBJ			=	$(SRC:.c=.o)
+
+all:			$(NAME)
+
+$(NAME):		$(OBJ)
+				$(CC) -o $(NAME) $(OBJ) $(CFLAGS)
 
 clean:
-	rm -f $(OBJ)
+				rm -f $(OBJ)
 
-fclean:
-	rm -f $(NAME) $(OBJ)
+fclean:			clean
+				rm -f $(NAME)
 
-cleanvg:
-	rm -f vgcore*
+re:				fclean all
 
-re:     fclean all
+debug:			CFLAGS += -g
+debug:			re
 
-.PHONY:	all debug clean fclean re
+.PHONY:			all clean fclean re debug
