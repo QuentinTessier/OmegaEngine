@@ -24,3 +24,10 @@ void *OmVec_front(OmVector *this)
 {
     return ((this && this->size) ? this->arr[0] : 0);
 }
+
+void *OmVec_at(OmVector *this, size_t idx)
+{
+    if (this == 0 || this->size == 0 || this->size < idx)
+        return (0);
+    return (this->arr[idx]);
+}

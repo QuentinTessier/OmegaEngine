@@ -38,6 +38,7 @@ void OmVec_drop(OmVector *this);
 bool OmVec_set(OmVector *this, size_t idx, void *item);
 void *OmVec_back(OmVector *this);
 void *OmVec_front(OmVector *this);
+void *OmVec_at(OmVector *this, size_t idx);
 
 /*
 ** Property access

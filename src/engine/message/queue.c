@@ -12,7 +12,7 @@
 #include <SFML/System/Mutex.h>
 #include "engine/message/message.h"
 
-char *my_strdup(const char *s)
+static char *my_strdup(const char *s)
 {
     int size = strlen(s);
     char *new = malloc(sizeof(char) * size + 1);

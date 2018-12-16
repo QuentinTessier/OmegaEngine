@@ -7,65 +7,60 @@
 
 #include <stdio.h>
 #include <SFML/Graphics.h>
-#include <SFML/Audio.h>
 #include <string.h>
-#include <pthread.h>
+#include <assert.h>
 #include "engine/message/message.h"
-#include "engine/utility/vector.h"
+#include "engine/utility/hashmap.h"
 
-void audio_engine(void *queue)
+void audio_loop(void *data)
 {
-    OmQHeader *q = queue;
-    OmMessage *tmp = 0;
-    int run = 1;
+    sfBool run = sfTrue;
+    OmMessage *tmp;
 
-    while (run) {
-        tmp = OmQueue.pop(q);
-        if (tmp == NULL)
+    while (run == sfTrue) {
+        tmp = OmQueue.pop((OmQHeader *)data);
+        if (!tmp)
             continue;
-        if (tmp->data_use == 1)
-            printf("Play\n");
-        if (tmp->data_use == 0)
-            printf("Pause\n");
-        if (tmp->data_use == -1) {
-            run = 0;
+        if (tmp->data_use == 1) {
+            printf("Play/Pause\n");
+        }
+        if (tmp->data_use == 0) {
+            run = sfFalse;
             printf("Terminate\n");
         }
-        delete_message(tmp);
     }
     return;
 }
 
-void loop(sfRenderWindow *win, OmQHeader *handle)
+void loop(sfRenderWindow *r, OmQHeader *audio_engine)
 {
-    sfEvent event;
-    sfThread *audio = sfThread_create(&audio_engine, handle);
+    sfThread *audio = sfThread_create(audio_loop, audio_engine);
 
     sfThread_launch(audio);
-    while (sfRenderWindow_isOpen(win)) {
-        while (sfRenderWindow_pollEvent(win, &event)) {
+    while (sfRenderWindow_isOpen(r)) {
+        sfEvent event;
+        while (sfRenderWindow_pollEvent(r, &event)) {
             if (event.type == sfEvtClosed)
-                sfRenderWindow_close(win);
-            if (event.type == sfEvtKeyPressed && event.key.code == sfKeyA)
-                OmQueue.push(handle, create_message("MySong", 1, 0));
-            if (event.type == sfEvtKeyPressed && event.key.code == sfKeyZ)
-                OmQueue.push(handle, create_message("MySong", 0, 0));
+                sfRenderWindow_close(r);
+            if (event.type == sfEvtKeyPressed) {
+                OmQueue.push(audio_engine, create_message("Music", 1, 0));
+            }
         }
-        sfRenderWindow_clear(win, sfBlack);
-        sfRenderWindow_display(win);
+        sfRenderWindow_clear(r, sfBlack);
+        sfRenderWindow_display(r);
     }
-    OmQueue.push(handle, create_message("Terminate", -1, 0));
+    OmQueue.push(audio_engine, create_message("Terminate", 0, 0));
     sfThread_wait(audio);
     sfThread_destroy(audio);
-    sfRenderWindow_destroy(win);
-    OmQueue.destroy(handle);
+    OmQueue.destroy(audio_engine);
+    sfRenderWindow_destroy(r);
+    return;
 }
 
 int main()
 {
-    sfRenderWindow *win = sfRenderWindow_create((sfVideoMode){800, 600, 32},
-                            "MultiThreadedAudioTest", sfClose, NULL);
-    OmQHeader *handle = OmQueue.create();
-    loop(win, handle);
+    OmQHeader *audio_engine = OmQueue.create();
+    sfRenderWindow *r = sfRenderWindow_create((sfVideoMode){100, 100, 32}, "NAME", sfClose, NULL);
+    loop(r, audio_engine);
     return (0);
 }

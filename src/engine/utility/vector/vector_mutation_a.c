@@ -38,9 +38,11 @@ ssize_t OmVec_push_front(OmVector *this, size_t nb_args, ...)
         return (-1);
     if (nb_args == 0)
         return (this->size);
-    if ((this->size + nb_args) > this->capacity && internal_OmVec_grow(this, nb_args) == NULL)
+    if ((this->size + nb_args) > this->capacity &&
+            internal_OmVec_grow(this, nb_args) == NULL)
         return (-1);
     memmove(this->arr + nb_args, this->arr, this->size * sizeof(void *));
+    this->size += nb_args;
     va_start(list, nb_args);
     for (size_t i = 0; i < nb_args; i++)
         OmVec_set(this, i, va_arg(list, void *));
@@ -65,6 +67,7 @@ void *OmVec_pop_front(OmVector *this)
     if (this == NULL || this->size == 0)
         return (NULL);
     this->size -= 1;
+    memmove(this->arr, this->arr + 1, this->size * sizeof(void *));
     return (item);
 }
 
