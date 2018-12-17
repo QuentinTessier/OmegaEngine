@@ -1,7 +1,7 @@
 # CSFML_2D_RENDERER
 
 This is part of my personnal interest about Game Engine.
-The goal is to be able to use that "piece of engine" and use it for one of my school project. I hope it will bring my team :
+The goal is to be able to use that "piece of engine" for one of my school project. I hope it will bring my team :
 
     - A simple abstraction of CSFML library
 
