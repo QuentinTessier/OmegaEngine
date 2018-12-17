@@ -6,7 +6,7 @@
 */
 
 #include <string.h>
-#include "engine/utility/intern_hashmap.h"
+#include "utility/intern_hashmap.h"
 
 bool intern_OmHash_find_key(char *to_find, char *src, size_t idx)
 {

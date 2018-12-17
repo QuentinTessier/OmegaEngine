@@ -7,8 +7,8 @@
 
 #include <stdarg.h>
 #include <string.h>
-#include "engine/utility/vector.h"
-#include "engine/utility/internal_vector.h"
+#include "utility/vector.h"
+#include "utility/internal_vector.h"
 
 ssize_t OmVec_push_back(OmVector *this, size_t nb_args, ...)
 {

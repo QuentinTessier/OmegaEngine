@@ -5,7 +5,7 @@
 ** hmap_access
 */
 
-#include "engine/utility/hashmap.h"
+#include "utility/hashmap.h"
 
 OmVector *OmHash_keys(OmHashmap *this)
 {

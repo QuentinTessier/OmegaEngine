@@ -5,7 +5,7 @@
 ** hmap_destruct
 */
 
-#include "engine/utility/hashmap.h"
+#include "utility/hashmap.h"
 
 void OmHash_clear(OmHashmap *this, bool free_values)
 {

@@ -5,7 +5,7 @@
 ** vector_destruct
 */
 
-#include "engine/utility/vector.h"
+#include "utility/vector.h"
 
 void OmVec_clear(OmVector *this, bool free_items)
 {

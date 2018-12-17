@@ -9,7 +9,7 @@ NAME		=	OmegaEngine
 
 CC			=	gcc
 
-INCLUDE		=	-Iinclude
+INCLUDE		=	-Iinclude -Iengine/include
 
 CSFML		=	-lcsfml-graphics -lcsfml-window -lcsfml-audio -lcsfml-system
 
@@ -17,25 +17,31 @@ MATH		=	-lm
 
 CFLAGS  	=	-Wall -Wextra -std=c11 $(INCLUDE) $(CSFML) $(MATH)
 
-ENGINE_SRC	=	./src/engine/utility/vector/vector_find_item.c				\
-				./src/engine/utility/vector/vector_set.c					\
-				./src/engine/utility/vector/vector_access.c					\
-				./src/engine/utility/vector/vector_iterate.c				\
-				./src/engine/utility/vector/vector_mutation_a.c				\
-				./src/engine/utility/vector/vector_construct.c				\
-				./src/engine/utility/vector/vector_destruct.c				\
-				./src/engine/utility/vector/internal_vector.c				\
-				./src/engine/utility/hmap/hmap_iterate.c					\
-				./src/engine/utility/hmap/intern_hmap.c						\
-				./src/engine/utility/hmap/hmap_construct.c					\
-				./src/engine/utility/hmap/hmap_destruct.c					\
-				./src/engine/utility/hmap/hmap_access.c						\
-				./src/engine/utility/hmap/hmap_values.c						\
-				./src/engine/utility/hmap/hmap_namespace.c					\
-				./src/engine/message/queue.c
+CORE_ENGINE		=	./engine/message/queue.c							\
+					./engine/message/queue_namescape.c
+
+UTILITY_ENGINE	=	./engine/utility/vector/vector_construct.c 			\
+					./engine/utility/vector/vector_destruct.c 			\
+					./engine/utility/vector/internal_vector.c 			\
+					./engine/utility/vector/vector_mutation.c  			\
+					./engine/utility/vector/vector_find_item.c 			\
+					./engine/utility/vector/vector_access.c     		\
+					./engine/utility/vector/vector_iterate.c  			\
+					./engine/utility/vector/vector_set.c				\
+					./engine/utility/hmap/hmap_iterate.c				\
+					./engine/utility/hmap/intern_hmap.c					\
+					./engine/utility/hmap/hmap_construct.c				\
+					./engine/utility/hmap/hmap_destruct.c				\
+					./engine/utility/hmap/hmap_access.c					\
+					./engine/utility/hmap/hmap_values.c					\
+					./engine/utility/hmap/hmap_namespace.c				\
+					./engine/utility/pool/pool.c 						\
+					./engine/utility/pool/pool_namespace.c
+
 
 SRC			=	src/main.c			\
-				$(ENGINE_SRC)
+				$(CORE_ENGINE)		\
+				$(UTILITY_ENGINE)
 
 OBJ			=	$(SRC:.c=.o)
 
@@ -43,6 +49,7 @@ all:			$(NAME)
 
 $(NAME):		$(OBJ)
 				$(CC) -o $(NAME) $(OBJ) $(CFLAGS)
+				rm -f $(OBJ)
 
 clean:
 				rm -f $(OBJ)

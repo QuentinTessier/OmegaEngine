@@ -5,7 +5,7 @@
 ** vector_iterate
 */
 
-#include "engine/utility/vector.h"
+#include "utility/vector.h"
 
 void OmVec_map(OmVector *this,
         void *(*func)(void *context, void *elem, size_t idx),

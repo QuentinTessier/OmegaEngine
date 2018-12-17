@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <SFML/System/Thread.h>
+
 typedef struct OmMessage {
     char *data_name;
     int data_use;

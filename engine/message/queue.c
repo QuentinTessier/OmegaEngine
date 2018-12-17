@@ -10,7 +10,7 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <SFML/System/Mutex.h>
-#include "engine/message/message.h"
+#include "thread_handler/message_queue.h"
 
 static char *my_strdup(const char *s)
 {
@@ -43,8 +43,7 @@ void delete_message(OmMessage *message)
     message = 0;
 }
 
-static OmQHeader *create();
-static OmQHeader *create()
+OmQHeader *create()
 {
     OmQHeader *handle = malloc(sizeof(*handle));
 
@@ -54,16 +53,14 @@ static OmQHeader *create()
     return (handle);
 }
 
-static void destroy(OmQHeader *header);
-static void destroy(OmQHeader *header)
+void destroy(OmQHeader *header)
 {
     free(header->mutex);
     free(header);
     header = NULL;
 }
 
-static void push(OmQHeader *header, OmMessage *message);
-static void push(OmQHeader *header, OmMessage *message)
+void push(OmQHeader *header, OmMessage *message)
 {
     if (message == NULL || header == NULL)
         return;
@@ -81,8 +78,7 @@ static void push(OmQHeader *header, OmMessage *message)
     sfMutex_unlock(header->mutex);
 }
 
-static OmMessage *pop(OmQHeader *header);
-static OmMessage *pop(OmQHeader *header)
+OmMessage *pop(OmQHeader *header)
 {
     sfMutex_lock(header->mutex);
     OmMessage *head = header->head;
@@ -98,10 +94,3 @@ static OmMessage *pop(OmQHeader *header)
         return (head);
     }
 }
-
-_OmQueue const OmQueue = {
-    create,
-    destroy,
-    push,
-    pop
-};

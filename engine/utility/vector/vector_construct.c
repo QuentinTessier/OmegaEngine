@@ -6,7 +6,7 @@
 */
 
 #include <string.h>
-#include "engine/utility/vector.h"
+#include "utility/vector.h"
 
 OmVector *OmVec_new(void)
 {

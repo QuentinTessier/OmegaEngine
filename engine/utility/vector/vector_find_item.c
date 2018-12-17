@@ -5,7 +5,7 @@
 ** vector_find_item
 */
 
-#include "engine/utility/vector.h"
+#include "utility/vector.h"
 
 ssize_t OmVec_index_of(OmVector *this, void *element)
 {

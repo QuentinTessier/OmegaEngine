@@ -5,7 +5,7 @@
 ** vector_access
 */
 
-#include "engine/utility/vector.h"
+#include "utility/vector.h"
 
 size_t OmVec_size(OmVector *this)
 {

@@ -6,8 +6,8 @@
 */
 
 #include <stdlib.h>
-#include "engine/utility/intern_hashmap.h"
-#include "engine/utility/hashmap.h"
+#include "utility/intern_hashmap.h"
+#include "utility/hashmap.h"
 
 static char *my_strdup(const char *s)
 {

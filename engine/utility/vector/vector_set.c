@@ -5,7 +5,7 @@
 ** vector_set
 */
 
-#include "engine/utility/vector.h"
+#include "utility/vector.h"
 
 bool OmVec_set(OmVector *this, size_t idx, void *item)
 {

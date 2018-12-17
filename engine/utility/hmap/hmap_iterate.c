@@ -5,7 +5,7 @@
 ** hmap_iterate
 */
 
-#include "engine/utility/hashmap.h"
+#include "utility/hashmap.h"
 
 void OmHash_for_each(OmHashmap *this,
         void (*callback)(void *context, char *key, void *element),

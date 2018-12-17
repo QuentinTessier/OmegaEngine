@@ -5,7 +5,7 @@
 ** hmap_construct
 */
 
-#include "engine/utility/hashmap.h"
+#include "utility/hashmap.h"
 
 OmHashmap *OmHash_new(void)
 {

@@ -9,8 +9,9 @@
 #include <SFML/Graphics.h>
 #include <string.h>
 #include <assert.h>
-#include "engine/message/message.h"
-#include "engine/utility/hashmap.h"
+#include "thread_handler/message_queue.h"
+#include "utility/hashmap.h"
+#include "utility/pool.h"
 
 void audio_loop(void *data)
 {
