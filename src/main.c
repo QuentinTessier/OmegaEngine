@@ -47,7 +47,7 @@ void loop(sfRenderWindow *r, OmQHeader *audio_engine)
                 OmQueue.push(audio_engine, create_message("Music", 1, 0));
             }
         }
-        sfRenderWindow_clear(r, sfBlack);
+        sfRenderWindow_clear(r, sfRed);
         sfRenderWindow_display(r);
     }
     OmQueue.push(audio_engine, create_message("Terminate", 0, 0));
