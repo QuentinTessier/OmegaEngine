@@ -5,7 +5,7 @@ The goal is to be able to use that "piece of engine" for one of my school projec
 
     - A simple abstraction of CSFML library
 
-    - New data structure to work with to make the development easier
+    - New data structure to work with, to make the development easier
 
     - A multi threaded and safe renderer (Because why not, I need to learn)
 
