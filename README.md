@@ -9,7 +9,7 @@ The goal is to be able to use that "piece of engine" for one of my school projec
 
     - A multi threaded and safe renderer (Because why not, I need to learn)
 
-I would like to thanks Hivero (https://github.com/Hirevo) for a few of implementation of my data structure (vectors and hashmap).
+I would like to thanks Hivero (https://github.com/Hirevo) for a few of implementations of my data structure (vectors and hashmap).
 
 If you have any questions on the code, you can create a issues.
 
