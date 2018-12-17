@@ -6,6 +6,7 @@
 */
 
 #include <stdlib.h>
+#include "utility/declarations/vector_declaration.h"
 #include "utility/intern_hashmap.h"
 #include "utility/hashmap.h"
 

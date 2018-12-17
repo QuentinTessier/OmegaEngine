@@ -10,7 +10,7 @@
 #include "utility/vector.h"
 #include "utility/internal_vector.h"
 
-ssize_t OmVec_push_back(OmVector *this, size_t nb_args, ...)
+ssize_t OmVec_push_back(OmVectorS *this, size_t nb_args, ...)
 {
     va_list list;
     size_t l_size = this->size;
@@ -25,12 +25,12 @@ ssize_t OmVec_push_back(OmVector *this, size_t nb_args, ...)
     this->size = n_size;
     va_start(list, nb_args);
     for (size_t i = l_size; i < n_size; i++)
-        OmVec_set(this, i, va_arg(list, void *));
+        OmVector.set(this, i, va_arg(list, void *));
     va_end(list);
     return (this->size);
 }
 
-ssize_t OmVec_push_front(OmVector *this, size_t nb_args, ...)
+ssize_t OmVec_push_front(OmVectorS *this, size_t nb_args, ...)
 {
     va_list list;
 
@@ -45,14 +45,14 @@ ssize_t OmVec_push_front(OmVector *this, size_t nb_args, ...)
     this->size += nb_args;
     va_start(list, nb_args);
     for (size_t i = 0; i < nb_args; i++)
-        OmVec_set(this, i, va_arg(list, void *));
+        OmVector.set(this, i, va_arg(list, void *));
     va_end(list);
     return (this->size);
 }
 
-void *OmVec_pop_back(OmVector *this)
+void *OmVec_pop_back(OmVectorS *this)
 {
-    void *item = OmVec_back(this);
+    void *item = OmVector.back(this);
 
     if (this == NULL || this->size == 0)
         return (NULL);
@@ -60,9 +60,9 @@ void *OmVec_pop_back(OmVector *this)
     return (item);
 }
 
-void *OmVec_pop_front(OmVector *this)
+void *OmVec_pop_front(OmVectorS *this)
 {
-    void *item = OmVec_front(this);
+    void *item = OmVector.front(this);
 
     if (this == NULL || this->size == 0)
         return (NULL);
@@ -71,22 +71,22 @@ void *OmVec_pop_front(OmVector *this)
     return (item);
 }
 
-bool OmVec_insert(OmVector *this, size_t idx, void *element)
+bool OmVec_insert(OmVectorS *this, size_t idx, void *element)
 {
     size_t l_size = this->size;
 
     if (this == NULL || this->size < idx)
         return (false);
     if (this->size == idx)
-        return (OmVec_push_back(this, 1, element) != -1);
+        return (OmVector.push_back(this, 1, element) != -1);
     if ((this->size + 1) > this->capacity && internal_OmVec_grow(this, 1) == NULL)
         return (false);
     memmove(this->arr + idx + 1, this->arr + idx, (l_size - idx) * sizeof(void *));
-    OmVec_set(this, idx, element);
+    OmVector.set(this, idx, element);
     return (true);
 }
 
-void *OmVec_remove(OmVector *this, size_t idx)
+void *OmVec_remove(OmVectorS *this, size_t idx)
 {
     void *tmp;
 
@@ -98,7 +98,7 @@ void *OmVec_remove(OmVector *this, size_t idx)
     return (tmp);
 }
 
-OmVector *OmVec_reverse(OmVector *this)
+OmVectorS *OmVec_reverse(OmVectorS *this)
 {
     void *tmp;
     size_t lo = 0;
@@ -116,17 +116,17 @@ OmVector *OmVec_reverse(OmVector *this)
     return (this);
 }
 
-OmVector *OmVec_concat(OmVector *this, OmVector *other)
+OmVectorS *OmVec_concat(OmVectorS *this, OmVectorS *other)
 {
     if (this == NULL || other == NULL)
         return (this);
-    OmVec_reserve(this, this->size + other->size);
+    OmVector.reserve(this, this->size + other->size);
     for (size_t idx = 0; idx < other->size; idx++)
-        OmVec_push_back(this, 1, other->arr[idx]);
+        OmVector.push_back(this, 1, other->arr[idx]);
     return (this);
 }
 
-bool OmVec_reserve(OmVector *this, size_t capacity)
+bool OmVec_reserve(OmVectorS *this, size_t capacity)
 {
     void **arr;
 
@@ -140,7 +140,7 @@ bool OmVec_reserve(OmVector *this, size_t capacity)
     return (true);
 }
 
-void OmVec_shrink_to_fit(OmVector *this)
+void OmVec_shrink_to_fit(OmVectorS *this)
 {
     void **arr;
 

@@ -7,7 +7,7 @@
 
 #include "utility/vector.h"
 
-void OmVec_clear(OmVector *this, bool free_items)
+void OmVec_clear(OmVectorS *this, bool free_items)
 {
     if (this == NULL)
         return;
@@ -20,7 +20,7 @@ void OmVec_clear(OmVector *this, bool free_items)
     this->arr = 0;
 }
 
-void OmVec_drop(OmVector *this)
+void OmVec_drop(OmVectorS *this)
 {
     if (this == NULL)
         return;

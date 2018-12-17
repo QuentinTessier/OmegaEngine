@@ -7,7 +7,7 @@
 
 #include "utility/vector.h"
 
-ssize_t OmVec_index_of(OmVector *this, void *element)
+ssize_t OmVec_index_of(OmVectorS *this, void *element)
 {
     size_t idx = 0;
 
@@ -17,7 +17,7 @@ ssize_t OmVec_index_of(OmVector *this, void *element)
     return ((idx < this->size) ? (ssize_t)(idx) : (ssize_t)(-1));
 }
 
-ssize_t OmVec_last_index_of(OmVector *this, void *element)
+ssize_t OmVec_last_index_of(OmVectorS *this, void *element)
 {
     size_t idx;
 
@@ -29,7 +29,7 @@ ssize_t OmVec_last_index_of(OmVector *this, void *element)
     return ((ssize_t)(-1));
 }
 
-ssize_t OmVec_find_index(OmVector *this,
+ssize_t OmVec_find_index(OmVectorS *this,
         bool (*predicate)(void *context, void *element, size_t idx),
         void *context)
 {
@@ -43,7 +43,7 @@ ssize_t OmVec_find_index(OmVector *this,
     return ((idx < this->size) ? (ssize_t)(idx) : (ssize_t)(-1));
 }
 
-ssize_t OmVec_find_last_index(OmVector *this,
+ssize_t OmVec_find_last_index(OmVectorS *this,
         bool (*predicate)(void *context, void *element, size_t idx),
         void *context)
 {
@@ -58,7 +58,7 @@ ssize_t OmVec_find_last_index(OmVector *this,
     return ((ssize_t)(-1));
 }
 
-void *OmVec_find(OmVector *this,
+void *OmVec_find(OmVectorS *this,
         bool (*predicate)(void *context, void *element, size_t idx),
         void *context)
 {
@@ -72,7 +72,7 @@ void *OmVec_find(OmVector *this,
     return ((idx < this->size) ? this->arr[idx] : 0);
 }
 
-void *OmVec_find_last(OmVector *this,
+void *OmVec_find_last(OmVectorS *this,
         bool (*predicate)(void *context, void *element, size_t idx),
         void *context)
 {

@@ -8,14 +8,14 @@
 #include <string.h>
 #include "utility/vector.h"
 
-OmVector *OmVec_new(void)
+OmVectorS *OmVec_new(void)
 {
-    return (calloc(1, sizeof(OmVector)));
+    return (calloc(1, sizeof(OmVectorS)));
 }
 
-OmVector *OmVec_from_capacity(size_t capacity)
+OmVectorS *OmVec_from_capacity(size_t capacity)
 {
-    OmVector *new = OmVec_new();
+    OmVectorS *new = OmVec_new();
 
     if (new == NULL)
         return (NULL);
@@ -28,9 +28,9 @@ OmVector *OmVec_from_capacity(size_t capacity)
     return (new);
 }
 
-OmVector *OmVec_clone(OmVector *vector)
+OmVectorS *OmVec_clone(OmVectorS *vector)
 {
-    OmVector *new;
+    OmVectorS *new;
 
     if (vector == NULL)
         return (NULL);

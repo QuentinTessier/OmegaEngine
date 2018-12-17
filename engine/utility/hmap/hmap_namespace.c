@@ -24,8 +24,8 @@ void OmHash_drop(OmHashmap *this);
 /*
 ** Property access
 */
-OmVector *OmHash_keys(OmHashmap *this);
-OmVector *OmHash_values(OmHashmap *this);
+OmVectorS *OmHash_keys(OmHashmap *this);
+OmVectorS *OmHash_values(OmHashmap *this);
 size_t OmHash_size(OmHashmap *this);
 
 /*

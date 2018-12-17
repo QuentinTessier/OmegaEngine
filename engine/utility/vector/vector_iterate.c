@@ -7,7 +7,7 @@
 
 #include "utility/vector.h"
 
-void OmVec_map(OmVector *this,
+void OmVec_map(OmVectorS *this,
         void *(*func)(void *context, void *elem, size_t idx),
         void *context)
 {
@@ -17,7 +17,7 @@ void OmVec_map(OmVector *this,
         this->arr[idx] = func(context, this->arr[idx], idx);
 }
 
-OmVector *OmVec_filter(OmVector *this,
+OmVectorS *OmVec_filter(OmVectorS *this,
         void *(*predicate)(void *context, void *elem, size_t idx),
         void *context)
 {
@@ -25,11 +25,11 @@ OmVector *OmVec_filter(OmVector *this,
         return (NULL);
     for (ssize_t idx = ((ssize_t)(this->size)) - 1; idx >= 0; idx--)
         if (predicate(context, this->arr[idx], idx) == false)
-            OmVec_remove(this, idx);
+            OmVector.remove(this, idx);
     return (this);
 }
 
-bool OmVec_sort_helper(OmVector *this,
+bool OmVec_sort_helper(OmVectorS *this,
         int (*predicate)(void *, size_t, void *, size_t))
 {
     bool done = true;
@@ -46,7 +46,7 @@ bool OmVec_sort_helper(OmVector *this,
     return (done);
 }
 
-OmVector *OmVec_sort(OmVector *this,
+OmVectorS *OmVec_sort(OmVectorS *this,
         int (*predicate)(void *a, size_t idx1, void *b, size_t idx))
 {
     if (this == NULL || this->size == 0)
@@ -55,7 +55,7 @@ OmVector *OmVec_sort(OmVector *this,
     return (this);
 }
 
-void OmVec_for_each(OmVector *this,
+void OmVec_for_each(OmVectorS *this,
         int (*func)(void *context, void *elem, size_t idx), void *context)
 {
     if (this == 0 || this->size == 0)
@@ -64,7 +64,7 @@ void OmVec_for_each(OmVector *this,
         func(context, this->arr[idx], idx);
 }
 
-void *OmVec_reduce(OmVector *this,
+void *OmVec_reduce(OmVectorS *this,
         void *(*func)(void *context, void *acc, void *elem, size_t idx),
         void *context, void *acc)
 {

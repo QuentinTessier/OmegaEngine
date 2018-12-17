@@ -15,8 +15,8 @@ typedef struct OmHashmap OmHashmap;
 
 struct OmHashmap {
     size_t size;
-    OmVector *keys;
-    OmVector *data;
+    OmVectorS *keys;
+    OmVectorS *data;
 };
 
 typedef struct OmHashHeader OmHashHeader;
@@ -27,7 +27,7 @@ struct OmHashHeader {
     ** Constructor
     */
     OmHashmap *(*new)(void);
-    OmHashmap *(*from_capicity)(size_t capacity);
+    OmHashmap *(*with_capicity)(size_t capacity);
     OmHashmap *(*clone)(OmHashmap *origin);
     OmHashmap *(*merge)(OmHashmap *this, OmHashmap *other);
 
@@ -40,8 +40,8 @@ struct OmHashHeader {
     /*
     ** Property access
     */
-    OmVector *(*keys)(OmHashmap *this);
-    OmVector *(*values)(OmHashmap *this);
+    OmVectorS *(*keys)(OmHashmap *this);
+    OmVectorS *(*values)(OmHashmap *this);
     size_t (*size)(OmHashmap *this);
 
     /*

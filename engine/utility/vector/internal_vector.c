@@ -19,9 +19,9 @@ static size_t compute_capacity(size_t capacity)
     return (capacity + 1);
 }
 
-OmVector *internal_OmVec_grow(OmVector *this, size_t count)
+OmVectorS *internal_OmVec_grow(OmVectorS *this, size_t count)
 {
-    bool ret = OmVec_reserve(this, compute_capacity(this->size + count));
+    bool ret = OmVector.reserve(this, compute_capacity(this->size + count));
 
     return ((ret) ? this : 0);
 }

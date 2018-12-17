@@ -62,6 +62,8 @@ int main()
 {
     OmQHeader *audio_engine = OmQueue.create();
     sfRenderWindow *r = sfRenderWindow_create((sfVideoMode){100, 100, 32}, "NAME", sfClose, NULL);
+    OmPoolS *p = OmPool.create(10);
+    OmPool.insert(p, 100, 0x10);
     loop(r, audio_engine);
     return (0);
 }

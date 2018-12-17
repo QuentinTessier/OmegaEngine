@@ -5,6 +5,7 @@
 ** hmap_destruct
 */
 
+#include "utility/declarations/vector_declaration.h"
 #include "utility/hashmap.h"
 
 void OmHash_clear(OmHashmap *this, bool free_values)

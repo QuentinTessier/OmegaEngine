@@ -9,4 +9,4 @@
 
 #include "vector.h"
 
-OmVector *internal_OmVec_grow(OmVector *this, size_t count);
+OmVectorS *internal_OmVec_grow(OmVectorS *this, size_t count);

@@ -28,6 +28,7 @@ UTILITY_ENGINE	=	./engine/utility/vector/vector_construct.c 			\
 					./engine/utility/vector/vector_access.c     		\
 					./engine/utility/vector/vector_iterate.c  			\
 					./engine/utility/vector/vector_set.c				\
+					./engine/utility/vector/vector_namespace.c			\
 					./engine/utility/hmap/hmap_iterate.c				\
 					./engine/utility/hmap/intern_hmap.c					\
 					./engine/utility/hmap/hmap_construct.c				\

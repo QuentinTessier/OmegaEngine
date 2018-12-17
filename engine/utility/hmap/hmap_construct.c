@@ -5,6 +5,7 @@
 ** hmap_construct
 */
 
+#include "utility/declarations/vector_declaration.h"
 #include "utility/hashmap.h"
 
 OmHashmap *OmHash_new(void)
