@@ -1,4 +1,4 @@
 .vscode
 assets
-ENGINE_2D
 *.o
+OmegaEngine
