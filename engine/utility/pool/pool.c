@@ -20,7 +20,7 @@ OmPoolS *OmPool_create(size_t pool_size)
     new->max = pool_size;
     new->data = malloc(sizeof(void *) * new->max);
     if (!new->data) {
-        free(new->data);
+        free(new);
         return (0);
     }
     return (new);

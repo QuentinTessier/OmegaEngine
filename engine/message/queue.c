@@ -25,27 +25,30 @@ static char *my_strdup(const char *s)
     return (new);
 }
 
-OmMessage *create_message(const char *data_name, int use, void *to_use)
+OmMessage *create_message(const char *data_name, int use, void *to_use, int ReceiverID)
 {
     OmMessage *new = malloc(sizeof(OmMessage));
 
     new->data_name = my_strdup(data_name);
     new->data_use = use;
     new->to_use = to_use;
+    new->receiverID = ReceiverID;
     new->next = 0;
     return (new);
 }
 
 void delete_message(OmMessage *message)
 {
+    if (message == NULL)
+        return;
     free(message->data_name);
     free(message);
     message = 0;
 }
 
-OmQHeader *create()
+OmQueueS *create()
 {
-    OmQHeader *handle = malloc(sizeof(*handle));
+    OmQueueS *handle = malloc(sizeof(*handle));
 
     handle->head = NULL;
     handle->tail = NULL;
@@ -53,44 +56,60 @@ OmQHeader *create()
     return (handle);
 }
 
-void destroy(OmQHeader *header)
+void destroy(OmQueueS *handle)
 {
-    free(header->mutex);
-    free(header);
-    header = NULL;
+    free(handle->mutex);
+    free(handle);
+    handle = NULL;
 }
 
-void push(OmQHeader *header, OmMessage *message)
+void push(OmQueueS *handle, OmMessage *message)
 {
-    if (message == NULL || header == NULL)
+    if (message == NULL || handle == NULL)
         return;
-    sfMutex_lock(header->mutex);
-    if (!header->head) {
-        header->head = message;
-        header->tail = message;
+    sfMutex_lock(handle->mutex);
+    if (!handle->head) {
+        handle->head = message;
+        handle->tail = message;
         printf("Send : %s\n", message->data_name);
     } else {
-        OmMessage *old_message = header->tail;
+        OmMessage *old_message = handle->tail;
         old_message->next = message;
-        header->tail = message;
+        handle->tail = message;
         printf("Send : %s\n", message->data_name);
     }
-    sfMutex_unlock(header->mutex);
+    sfMutex_unlock(handle->mutex);
 }
 
-OmMessage *pop(OmQHeader *header)
+OmMessage *pop(OmQueueS *handle, int ReceiverID)
 {
-    sfMutex_lock(header->mutex);
-    OmMessage *head = header->head;
+    sfMutex_lock(handle->mutex);
+    OmMessage *head = handle->head;
 
-    if (head == NULL) {
-        sfMutex_unlock(header->mutex);
+    if (head == NULL || head->receiverID != ReceiverID) {
+        sfMutex_unlock(handle->mutex);
         return (NULL);
     } else {
-        header->head = head->next;
+        handle->head = head->next;
         head->next = NULL;
         printf("Recieve : %s\n", head->data_name);
-        sfMutex_unlock(header->mutex);
+        sfMutex_unlock(handle->mutex);
         return (head);
     }
+}
+
+sfBool OmQueueS_is_valid(OmQueueS *handle, int ReceiverID)
+{
+    sfMutex_lock(handle->mutex);
+    sfBool ret = sfFalse;
+
+    if (handle->head == NULL) {
+        sfMutex_unlock(handle->mutex);
+        return (ret);
+    } else {
+        if (handle->head->receiverID == ReceiverID)
+            ret = sfTrue;
+    }
+    sfMutex_unlock(handle->mutex);
+    return (ret);
 }

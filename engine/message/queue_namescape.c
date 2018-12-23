@@ -7,14 +7,16 @@
 
 #include "thread_handler/message_queue.h"
 
-OmQHeader *create();
-void destroy(OmQHeader *header);
-void push(OmQHeader *header, OmMessage *message);
-OmMessage *pop(OmQHeader *header);
+OmQueueS *create();
+void destroy(OmQueueS *header);
+void push(OmQueueS *header, OmMessage *message);
+OmMessage *pop(OmQueueS *header);
+sfBool OmQueueS_is_valid(OmQueueS *handle, int ReceiverID);
 
 _OmQueue const OmQueue = {
     create,
     destroy,
     push,
-    pop
+    pop,
+    OmQueueS_is_valid
 };

@@ -17,10 +17,10 @@ MATH		=	-lm
 
 CFLAGS  	=	-Wall -Wextra -std=c11 $(INCLUDE) $(CSFML) $(MATH)
 
-CORE_ENGINE		=	./engine/message/queue.c							\
-					./engine/message/queue_namescape.c
+RENDERER_SRC	=	./engine/renderer/renderer.c			\
+					./engine/renderer/drawable.c
 
-UTILITY_ENGINE	=	./engine/utility/vector/vector_construct.c 			\
+UTILITY_SRC	=	./engine/utility/vector/vector_construct.c 			\
 					./engine/utility/vector/vector_destruct.c 			\
 					./engine/utility/vector/internal_vector.c 			\
 					./engine/utility/vector/vector_mutation.c  			\
@@ -41,8 +41,7 @@ UTILITY_ENGINE	=	./engine/utility/vector/vector_construct.c 			\
 
 
 SRC			=	src/main.c			\
-				$(CORE_ENGINE)		\
-				$(UTILITY_ENGINE)
+				$(RENDERER_SRC)
 
 OBJ			=	$(SRC:.c=.o)
 
