@@ -20,7 +20,9 @@ CFLAGS  	=	-Wall -Wextra -std=c11 $(INCLUDE) $(CSFML) $(MATH)
 RENDERER_SRC	=	./engine/renderer/renderer.c			\
 					./engine/renderer/drawable.c
 
-UTILITY_SRC	=	./engine/utility/vector/vector_construct.c 			\
+ENGINE_SRC		=	./engine/src/main.c
+
+UTILITY_SRC	=		./engine/utility/vector/vector_construct.c 			\
 					./engine/utility/vector/vector_destruct.c 			\
 					./engine/utility/vector/internal_vector.c 			\
 					./engine/utility/vector/vector_mutation.c  			\
@@ -40,8 +42,9 @@ UTILITY_SRC	=	./engine/utility/vector/vector_construct.c 			\
 					./engine/utility/pool/pool_namespace.c
 
 
-SRC			=	src/main.c			\
-				$(RENDERER_SRC)
+SRC			=		./src/base_engine_func.c 	\
+					$(RENDERER_SRC)				\
+					$(ENGINE_SRC)
 
 OBJ			=	$(SRC:.c=.o)
 

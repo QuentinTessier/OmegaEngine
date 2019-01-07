@@ -11,54 +11,52 @@
 #include <string.h>
 #include "vector.h"
 
-typedef struct OmHashmap OmHashmap;
+typedef struct OmHashS OmHashS;
 
-struct OmHashmap {
+struct OmHashS {
     size_t size;
     OmVectorS *keys;
     OmVectorS *data;
 };
 
-typedef struct OmHashHeader OmHashHeader;
-
-struct OmHashHeader {
+typedef struct {
 
     /*
     ** Constructor
     */
-    OmHashmap *(*new)(void);
-    OmHashmap *(*with_capicity)(size_t capacity);
-    OmHashmap *(*clone)(OmHashmap *origin);
-    OmHashmap *(*merge)(OmHashmap *this, OmHashmap *other);
+    OmHashS *(*new)(void);
+    OmHashS *(*with_capicity)(size_t capacity);
+    OmHashS *(*clone)(OmHashS *origin);
+    OmHashS *(*merge)(OmHashS *this, OmHashS *other);
 
     /*
     ** Destructor
     */
-    void (*clear)(OmHashmap *this, bool free_values);
-    void (*drop)(OmHashmap *this);
+    void (*clear)(OmHashS *this, bool free_values);
+    void (*drop)(OmHashS *this);
 
     /*
     ** Property access
     */
-    OmVectorS *(*keys)(OmHashmap *this);
-    OmVectorS *(*values)(OmHashmap *this);
-    size_t (*size)(OmHashmap *this);
+    OmVectorS *(*keys)(OmHashS *this);
+    OmVectorS *(*values)(OmHashS *this);
+    size_t (*size)(OmHashS *this);
 
     /*
     ** Value access
     */
-    void *(*get)(OmHashmap *this, char *key);
-    bool (*set)(OmHashmap *this, char *key, void *value);
-    void *(*remove)(OmHashmap *this, char *key);
-    bool (*reserve)(OmHashmap *this, size_t capacity);
-    void (*shrink_to_fit)(OmHashmap *this);
+    void *(*get)(OmHashS *this, char *key);
+    bool (*set)(OmHashS *this, char *key, void *value);
+    void *(*remove)(OmHashS *this, char *key);
+    bool (*reserve)(OmHashS *this, size_t capacity);
+    void (*shrink_to_fit)(OmHashS *this);
 
     /*
     ** Iteration
     */
-    void (*for_each)(OmHashmap *this,
+    void (*for_each)(OmHashS *this,
             void (*callback)(void *context, char *key, void *element),
             void *context);
-};
+} _OmHash;
 
-extern OmHashHeader const OmHash;
+extern _OmHash const OmHash;

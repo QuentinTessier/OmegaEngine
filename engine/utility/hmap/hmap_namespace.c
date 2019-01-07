@@ -10,41 +10,41 @@
 /*
 ** Constructor
 */
-OmHashmap *OmHash_new(void);
-OmHashmap *OmHash_from_capicity(size_t capacity);
-OmHashmap *OmHash_clone(OmHashmap *origin);
-OmHashmap *OmHash_merge(OmHashmap *this, OmHashmap *other);
+OmHashS *OmHash_new(void);
+OmHashS *OmHash_from_capicity(size_t capacity);
+OmHashS *OmHash_clone(OmHashS *origin);
+OmHashS *OmHash_merge(OmHashS *this, OmHashS *other);
 
 /*
 ** Destructor
 */
-void OmHash_clear(OmHashmap *this, bool free_values);
-void OmHash_drop(OmHashmap *this);
+void OmHash_clear(OmHashS *this, bool free_values);
+void OmHash_drop(OmHashS *this);
 
 /*
 ** Property access
 */
-OmVectorS *OmHash_keys(OmHashmap *this);
-OmVectorS *OmHash_values(OmHashmap *this);
-size_t OmHash_size(OmHashmap *this);
+OmVectorS *OmHash_keys(OmHashS *this);
+OmVectorS *OmHash_values(OmHashS *this);
+size_t OmHash_size(OmHashS *this);
 
 /*
 ** Value access
 */
-void *OmHash_get(OmHashmap *this, char *key);
-bool OmHash_set(OmHashmap *this, char *key, void *value);
-void *OmHash_remove(OmHashmap *this, char *key);
-bool OmHash_reserve(OmHashmap *this, size_t capacity);
-void OmHash_shrink_to_fit(OmHashmap *this);
+void *OmHash_get(OmHashS *this, char *key);
+bool OmHash_set(OmHashS *this, char *key, void *value);
+void *OmHash_remove(OmHashS *this, char *key);
+bool OmHash_reserve(OmHashS *this, size_t capacity);
+void OmHash_shrink_to_fit(OmHashS *this);
 
 /*
 ** Iteration
 */
-void OmHash_for_each(OmHashmap *this,
+void OmHash_for_each(OmHashS *this,
         void (*callback)(void *context, char *key, void *element),
         void *context);
 
-OmHashHeader const OmHash = {
+_OmHash const OmHash = {
     OmHash_new,
     OmHash_from_capicity,
     OmHash_clone,
