@@ -8,9 +8,9 @@
 #include "utility/declarations/vector_declaration.h"
 #include "utility/hashmap.h"
 
-OmHashmap *OmHash_new(void)
+OmHashS *OmHash_new(void)
 {
-    OmHashmap *new = malloc(sizeof(OmHashmap));
+    OmHashS *new = malloc(sizeof(OmHashS));
 
     if (!new)
         return (NULL);
@@ -24,9 +24,9 @@ OmHashmap *OmHash_new(void)
     return (new);
 }
 
-OmHashmap *OmHash_from_capicity(size_t capacity)
+OmHashS *OmHash_from_capacity(size_t capacity)
 {
-    OmHashmap *new = malloc(sizeof(OmHashmap));
+    OmHashS *new = malloc(sizeof(OmHashS));
 
     if (!new)
         return (NULL);
@@ -40,9 +40,9 @@ OmHashmap *OmHash_from_capicity(size_t capacity)
     return (new);
 }
 
-OmHashmap *OmHash_clone(OmHashmap *origin)
+OmHashS *OmHash_clone(OmHashS *origin)
 {
-    OmHashmap *new = malloc(sizeof(OmHashmap));
+    OmHashS *new = malloc(sizeof(OmHashS));
 
     if (!new)
         return (NULL);
@@ -52,7 +52,7 @@ OmHashmap *OmHash_clone(OmHashmap *origin)
     return (new);
 }
 
-OmHashmap *OmHash_merge(OmHashmap *this, OmHashmap *other)
+OmHashS *OmHash_merge(OmHashS *this, OmHashS *other)
 {
     if (this == 0 || other == 0)
         return (this);

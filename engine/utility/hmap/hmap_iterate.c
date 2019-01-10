@@ -7,7 +7,7 @@
 
 #include "utility/hashmap.h"
 
-void OmHash_for_each(OmHashmap *this,
+void OmHash_for_each(OmHashS *this,
         void (*callback)(void *context, char *key, void *element),
         void *context)
 {

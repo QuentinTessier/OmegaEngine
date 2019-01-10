@@ -15,8 +15,8 @@ typedef struct OmStateMachineS {
     int *data;
 } OmStateMachineS;
 
-typedef struct OmStateMachine {
-    OmStateMachineS *(* const create)(size_t stack_size);
+typedef struct {
+    OmStateMachineS *(* const new)(size_t stack_size);
     void (* const destroy)(OmStateMachineS *handle);
     void (* const push)(OmStateMachineS *handle, int state);
     int (* const pop)(OmStateMachineS *handle);

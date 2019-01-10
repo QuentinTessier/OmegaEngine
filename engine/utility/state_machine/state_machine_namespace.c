@@ -1,6 +1,6 @@
 /*
-** EPITECH PROJECT, 2018
-** CSFML_2D_RENDERER
+** EPITECH PROJECT, 2019
+** OmegaEngine
 ** File description:
 ** state_machine_namespace
 */

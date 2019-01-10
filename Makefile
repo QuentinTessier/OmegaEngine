@@ -44,6 +44,7 @@ UTILITY_SRC	=		./engine/utility/vector/vector_construct.c 			\
 
 SRC			=		./src/base_engine_func.c 	\
 					$(RENDERER_SRC)				\
+					$(UTILITY_SRC)				\
 					$(ENGINE_SRC)
 
 OBJ			=	$(SRC:.c=.o)

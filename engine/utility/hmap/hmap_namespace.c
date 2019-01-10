@@ -1,17 +1,18 @@
 /*
-** EPITECH PROJECT, 2018
-** Engine
+** EPITECH PROJECT, 2019
+** OmegaEngine
 ** File description:
-** hmap_namespace
+** hmap_namescape
 */
 
+#include "utility/vector.h"
 #include "utility/hashmap.h"
 
 /*
 ** Constructor
 */
 OmHashS *OmHash_new(void);
-OmHashS *OmHash_from_capicity(size_t capacity);
+OmHashS *OmHash_from_capacity(size_t capacity);
 OmHashS *OmHash_clone(OmHashS *origin);
 OmHashS *OmHash_merge(OmHashS *this, OmHashS *other);
 
@@ -46,7 +47,7 @@ void OmHash_for_each(OmHashS *this,
 
 _OmHash const OmHash = {
     OmHash_new,
-    OmHash_from_capicity,
+    OmHash_from_capacity,
     OmHash_clone,
     OmHash_merge,
     OmHash_clear,

@@ -13,7 +13,7 @@
 int main(int ac, char **av)
 {
     OmWindowS main_window = OmEngine_Init();
-    OmHashS *main_data = OmHash.with_capicity(BASE_HASH_SIZE);
+    OmHashS *main_data = OmHash.with_capacity(BASE_HASH_SIZE);
 
     OmEngine_InitData(&main_window, main_data);
     return (0);

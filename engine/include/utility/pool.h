@@ -16,12 +16,12 @@ typedef struct OmPool {
 } OmPoolS;
 
 typedef struct {
-    OmPoolS *(* const create)(size_t pool_size);
+    OmPoolS *(* const new)(size_t pool_size);
     void (* const destroy)(OmPoolS *handle);
     void (* const push)(OmPoolS *handle, void *data_ptr);
-    void *(* const pop)(OmPoolS *handle, size_t idx);
-    void (* const insert)(OmPoolS *handle, size_t idx, void *ptr_data);
+    void *(* const pop)(OmPoolS *handle, size_t index);
     void (* const clear)(OmPoolS *handle);
+    void (* const insert)(OmPoolS *handle, size_t idx, void *data_ptr);
 } _OmPool;
 
 extern _OmPool const OmPool;

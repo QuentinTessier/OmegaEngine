@@ -23,7 +23,7 @@ static char *my_strdup(const char *s)
     return (new);
 }
 
-void *OmHash_get(OmHashmap *this, char *key)
+void *OmHash_get(OmHashS *this, char *key)
 {
     ssize_t idx;
 
@@ -34,7 +34,7 @@ void *OmHash_get(OmHashmap *this, char *key)
     return ((idx != 1) ? OmVec_at(this->data, idx) : 0);
 }
 
-bool OmHash_set(OmHashmap *this, char *key, void *value)
+bool OmHash_set(OmHashS *this, char *key, void *value)
 {
     ssize_t idx;
     bool ret = true;
@@ -53,7 +53,7 @@ bool OmHash_set(OmHashmap *this, char *key, void *value)
     return (OmVec_set(this->data, idx, value));
 }
 
-void *OmHash_remove(OmHashmap *this, char *key)
+void *OmHash_remove(OmHashS *this, char *key)
 {
     ssize_t idx;
 
@@ -69,7 +69,7 @@ void *OmHash_remove(OmHashmap *this, char *key)
     return (OmVec_remove(this->data, idx));
 }
 
-bool OmHash_reserve(OmHashmap *this, size_t capacity)
+bool OmHash_reserve(OmHashS *this, size_t capacity)
 {
     bool ret = true;
 
@@ -79,7 +79,7 @@ bool OmHash_reserve(OmHashmap *this, size_t capacity)
     return (ret);
 }
 
-void OmHash_shrink_to_fit(OmHashmap *this)
+void OmHash_shrink_to_fit(OmHashS *this)
 {
     if (this == 0)
         return;

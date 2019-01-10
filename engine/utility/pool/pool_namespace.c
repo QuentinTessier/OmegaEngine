@@ -1,8 +1,8 @@
 /*
-** EPITECH PROJECT, 2018
-** CSFML_2D_RENDERER
+** EPITECH PROJECT, 2019
+** OmegaEngine
 ** File description:
-** pool_namescape
+** pool_namespace
 */
 
 #include "utility/pool.h"
@@ -19,6 +19,6 @@ _OmPool const OmPool = {
     OmPool_destroy,
     OmPool_push,
     OmPool_pop,
-    OmPool_insert,
-    OmPool_clear
+    OmPool_clear,
+    OmPool_insert
 };

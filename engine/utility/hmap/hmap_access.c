@@ -7,17 +7,17 @@
 
 #include "utility/hashmap.h"
 
-OmVectorS *OmHash_keys(OmHashmap *this)
+OmVectorS *OmHash_keys(OmHashS *this)
 {
     return ((this) ? this->keys : 0);
 }
 
-OmVectorS *OmHash_values(OmHashmap *this)
+OmVectorS *OmHash_values(OmHashS *this)
 {
     return ((this) ? this->data : 0);
 }
 
-size_t OmHash_size(OmHashmap *this)
+size_t OmHash_size(OmHashS *this)
 {
     return ((this) ? this->size : 0);
 }

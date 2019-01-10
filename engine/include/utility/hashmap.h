@@ -25,7 +25,7 @@ typedef struct {
     ** Constructor
     */
     OmHashS *(*new)(void);
-    OmHashS *(*with_capicity)(size_t capacity);
+    OmHashS *(*with_capacity)(size_t capacity);
     OmHashS *(*clone)(OmHashS *origin);
     OmHashS *(*merge)(OmHashS *this, OmHashS *other);
 
