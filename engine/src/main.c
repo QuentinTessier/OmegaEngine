@@ -7,14 +7,30 @@
 
 #include <SFML/Graphics.h>
 #include <unistd.h>
-#include "utility/hashmap.h"
+#include "data_structure/OmHash.h"
 #include "OmEngine.h"
+
+void OmEvent_Process(OmWindowS *main_window, struct OmEvent_Storage *events)
+{
+    sfEvent event;
+
+    while (sfRenderWindow_pollEvent(main_window->window, &event)) {
+        OmEvent_Processor(main_window, event, events);
+    }
+}
+
+void game_loop(OmWindowS *main_window, struct OmEvent_Storage *events)
+{
+    while (sfRenderWindow_isOpen(main_window->window)) {
+        OmEvent_Process(main_window, events);
+    }
+}
 
 int main(int ac, char **av)
 {
     OmWindowS main_window = OmEngine_Init();
-    OmHashS *main_data = OmHash.with_capacity(BASE_HASH_SIZE);
+    struct OmEvent_Storage events = OmEngine_InitEvent();
 
-    OmEngine_InitData(&main_window, main_data);
+    game_loop(&main_window, &events);
     return (0);
 }

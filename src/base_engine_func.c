@@ -5,7 +5,7 @@
 ** base_engine_func
 */
 
-#include "utility/hashmap.h"
+#include "data_structure/OmHash.h"
 #include "OmEngine.h"
 
 OmWindowS OmEngine_Init(void)
@@ -21,7 +21,29 @@ OmWindowS OmEngine_Init(void)
     return (new_window);
 }
 
-void OmEngine_InitData(OmWindowS *w, OmHashS *hash)
+void KeyA_Callback(OmWindowS *window, sfEvent event, void *data)
 {
-    OmHash.set(hash, "1", (void *)0);
+    printf("%d\n", (int)data);
+}
+
+void MouseMove_Callback(OmWindowS *window, sfEvent event, void *data)
+{
+    printf("(%.1d, %.1d)\n", event.mouseMove.x, event.mouseMove.y);
+}
+
+struct OmEvent_Storage OmEngine_InitEvent(void)
+{
+    struct OmEvent_Storage events;
+
+    for (int i = 0; i < sfEvtCount; i++) {
+        for (int j = 0; j < sfKeyCount; j++) {
+            events.data[i][j].callback = 0;
+            events.data[i][j].data = 0;
+        }
+    }
+    events.data[sfEvtKeyPressed][sfKeyA].data = 0x1;
+    events.data[sfEvtKeyPressed][sfKeyA].callback = KeyA_Callback;
+    events.data[sfEvtMouseMoved][0].data = 0;
+    events.data[sfEvtMouseMoved][0].callback = MouseMove_Callback;
+    return (events);
 }
