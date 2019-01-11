@@ -19,14 +19,15 @@ typedef struct OmRendererS OmRendererS;
 struct OmRendererS {
     int max;
     int top;
-    OmDrawableS **data;
+    OmDrawableS *data;
+    sfVertexBuffer *buffer;
 };
 
 typedef struct {
     OmRendererS *(* const create)(size_t pool_size);
     void (* const destroy)(OmRendererS *handle);
-    void (* const push)(OmRendererS *handle, OmDrawableS *data_ptr);
-    void (* const insert)(OmRendererS *handle, int idx, OmDrawableS *ptr_data);
+    void (* const push)(OmRendererS *handle, OmDrawableS data_ptr);
+    void (* const insert)(OmRendererS *handle, int idx, OmDrawableS ptr_data);
     void (* const clear)(OmRendererS *handle);
     void (* const draw)(OmRendererS *handle, sfRenderWindow *window);
 } _OmRenderer;

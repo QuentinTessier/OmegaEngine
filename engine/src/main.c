@@ -21,8 +21,16 @@ void OmEvent_Process(OmWindowS *main_window, struct OmEvent_Storage *events)
 
 void game_loop(OmWindowS *main_window, struct OmEvent_Storage *events)
 {
+    OmDrawableS item = OmDrawable.ImportFromFile("./assets/player.draw");
+    OmRendererS *r = OmRenderer.create(10);
+
+    OmDrawable.update_states(&item, NULL, sfTransform_Identity, item.parser_infos->texture);
     while (sfRenderWindow_isOpen(main_window->window)) {
         OmEvent_Process(main_window, events);
+        sfRenderWindow_clear(main_window->window, sfBlack);
+        OmRenderer.push(r, item);
+        OmRenderer.draw(r, main_window->window);
+        sfRenderWindow_display(main_window->window);
     }
 }
 

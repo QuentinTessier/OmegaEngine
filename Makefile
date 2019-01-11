@@ -21,6 +21,7 @@ CFLAGS  	=	-Wall -Wextra -std=c11 $(INCLUDE) $(CSFML) $(MATH)
 
 ENGINE_SRC	=	$(ENGINE_PATH)/main.c 														\
 				$(ENGINE_PATH)/core/drawable/OmDrawable.c 									\
+				$(ENGINE_PATH)/core/drawable/OmDrawable_parser.c							\
 				$(ENGINE_PATH)/core/renderer/OmRenderer.c 									\
 				$(ENGINE_PATH)/core/event/OmEvent.c		 									\
 				$(ENGINE_PATH)/data_structure/OmHash/OmHash_access.c						\
@@ -46,7 +47,7 @@ ENGINE_SRC	=	$(ENGINE_PATH)/main.c 														\
 
 ENGINE_OBJ	=	$(ENGINE_SRC:.c=.o)
 
-SRC			=	./src/base_engine_func.c
+SRC			=	./game_src/base_engine_func.c
 
 OBJ			=	$(SRC:.c=.o)
 

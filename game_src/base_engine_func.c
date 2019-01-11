@@ -12,9 +12,9 @@ OmWindowS OmEngine_Init(void)
 {
     OmWindowS new_window;
 
-    new_window.window = sfRenderWindow_create((sfVideoMode){500, 500, 32}, "Name", sfClose, NULL);
+    new_window.window = sfRenderWindow_create((sfVideoMode){1280, 768, 32}, "Name", sfClose, NULL);
     new_window.clock = sfClock_create();
-    new_window.window_size = (sfVector2u){500, 500};
+    new_window.window_size = (sfVector2u){1280, 768};
     new_window.window_style = sfClose;
     new_window.renderer = 0;
     new_window.renderer_frequency = 16.0;
@@ -24,6 +24,11 @@ OmWindowS OmEngine_Init(void)
 void KeyA_Callback(OmWindowS *window, sfEvent event, void *data)
 {
     printf("%d\n", (int)data);
+}
+
+void KeyM_Callback(OmWindowS *window, sfEvent event, void *data)
+{
+    printf("Ceci est une event !\n");
 }
 
 void MouseMove_Callback(OmWindowS *window, sfEvent event, void *data)
@@ -41,8 +46,10 @@ struct OmEvent_Storage OmEngine_InitEvent(void)
             events.data[i][j].data = 0;
         }
     }
-    events.data[sfEvtKeyPressed][sfKeyA].data = 0x1;
+    events.data[sfEvtKeyPressed][sfKeyA].data = 0x2;
     events.data[sfEvtKeyPressed][sfKeyA].callback = KeyA_Callback;
+    events.data[sfEvtKeyPressed][sfKeyM].data = 0;
+    events.data[sfEvtKeyPressed][sfKeyM].callback = KeyM_Callback;
     events.data[sfEvtMouseMoved][0].data = 0;
     events.data[sfEvtMouseMoved][0].callback = MouseMove_Callback;
     return (events);

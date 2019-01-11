@@ -9,16 +9,17 @@
 #include <string.h>
 #include "core/renderer/OmRenderer.h"
 
-/*OmRendererS *OmRenderer_create(size_t renderer_size)
+OmRendererS *OmRenderer_create(size_t renderer_size)
 {
     OmRendererS *new = malloc(sizeof(OmRendererS));
 
     if (new == 0)
         return (0);
     new->top = -1;
-    new->max = (ssize_t)renderer_size;
-    new->data = malloc(sizeof(OmDrawableS *) * new->max);
-    if (new->data == 0) {
+    new->max = renderer_size;
+    new->data = malloc(sizeof(OmDrawableS) * new->max);
+    new->buffer = sfVertexBuffer_create(0, sfTriangles, sfVertexBufferDynamic);
+    if (new->data == 0 || new->buffer == 0) {
         free(new);
         return (0);
     }
@@ -31,14 +32,15 @@ void OmRenderer_destroy(OmRendererS *handle)
     free(handle);
 }
 
-void OmRenderer_push(OmRendererS *handle, OmDrawableS *item)
+void OmRenderer_push(OmRendererS *handle, OmDrawableS item)
 {
     if (handle->top >= handle->max - 1)
         return;
-    handle->data[++handle->top] = item;
+    handle->top += 1;
+    handle->data[handle->top] = item;
 }
 
-void OmRenderer_insert(OmRendererS *handle, int idx, OmDrawableS *item)
+void OmRenderer_insert(OmRendererS *handle, int idx, OmDrawableS item)
 {
     if (idx < 0)
         return;
@@ -48,7 +50,7 @@ void OmRenderer_insert(OmRendererS *handle, int idx, OmDrawableS *item)
         OmRenderer_push(handle, item);
         return;
     }
-    memmove(handle->data + idx + 1, handle->data + idx, (handle->top - idx + 1) * sizeof(void *));
+    memmove(handle->data + idx + 1, handle->data + idx, (handle->top - idx + 1) * sizeof(OmDrawableS));
     handle->data[idx] = item;
     handle->top++;
 }
@@ -60,11 +62,15 @@ void OmRenderer_clear(OmRendererS *handle)
 
 void OmRenderer_draw(OmRendererS *handle, sfRenderWindow *window)
 {
-    OmDrawableS *tmp;
+    OmDrawableS tmp;
+    int i = 0;
 
-    for (int idx = 0; idx <= handle->top; idx++) {
-        tmp = handle->data[idx];
-        tmp->draw(window, tmp, tmp->state);
+    while (i <= handle->top) {
+        tmp = handle->data[i];
+        sfVertexBuffer_setPrimitiveType(handle->buffer, tmp.type);
+        sfVertexBuffer_update(handle->buffer, tmp.vertices, tmp.count, tmp.offset);
+        sfRenderWindow_drawVertexBuffer(window, handle->buffer, &tmp.states);
+        i++;
     }
     OmRenderer_clear(handle);
 }
@@ -76,4 +82,4 @@ _OmRenderer const OmRenderer = {
     OmRenderer_insert,
     OmRenderer_clear,
     OmRenderer_draw
-};*/
+};
