@@ -17,6 +17,11 @@ OmDrawableS OmDrawable_new(sfPrimitiveType type)
     new.type = type;
     new.count = 0;
     new.offset = 0;
+    new.states.blendMode = sfBlendAdd;
+    new.states.shader = 0;
+    new.states.texture = 0;
+    new.states.transform = sfTransform_Identity;
+    new.parser_infos = 0;
     return (new);
 }
 
@@ -36,11 +41,20 @@ void OmDrawable_update_states(OmDrawableS *handle, sfShader *shader, sfTransform
     handle->states.transform = matrix;
 }
 
+void OmDrawable_move(OmDrawableS *handle, sfVector2f offset)
+{
+    for (int i = 0; i <= handle->count; i++) {
+        handle->vertices[i].position.x += offset.x;
+        handle->vertices[i].position.y += offset.y;
+    }
+}
+
 OmDrawableS OmDrawable_ImportFromFile(const char *path);
 
 _OmDrawable const OmDrawable = {
     OmDrawable_new,
     OmDrawable_update_vertices,
     OmDrawable_update_states,
-    OmDrawable_ImportFromFile
+    OmDrawable_ImportFromFile,
+    OmDrawable_move
 };

@@ -42,7 +42,8 @@ typedef struct OmDrawable {
     OmDrawableS (* const new)(sfPrimitiveType type);
     void (* const update_vertices)(OmDrawableS *handle, unsigned int vertices_count, const sfVertex *array, unsigned int offset);
     void (* const update_states)(OmDrawableS *handle, sfShader *shaders, sfTransform matrix, sfTexture *texture);
-    OmDrawableS (* const ImportFromFile)(const char *path);
+    OmDrawableS (* const ImportFromFile)(const char *path, const char *object_name);
+    void ( * const move)(OmDrawableS *handle, sfVector2f offset);
 } _OmDrawable;
 
 extern _OmDrawable const OmDrawable;

@@ -13,11 +13,13 @@ CC			=	gcc
 
 INCLUDE		=	-Iinclude -Iengine/include
 
+LIBS		=	-L./engine/libs -ljsmn
+
 CSFML		=	-lcsfml-graphics -lcsfml-window -lcsfml-audio -lcsfml-system
 
 MATH		=	-lm
 
-CFLAGS  	=	-Wall -Wextra -std=c11 $(INCLUDE) $(CSFML) $(MATH)
+CFLAGS  	=	-Wall -Wextra -std=c11 $(INCLUDE) $(CSFML) $(LIBS) $(MATH)
 
 ENGINE_SRC	=	$(ENGINE_PATH)/main.c 														\
 				$(ENGINE_PATH)/core/drawable/OmDrawable.c 									\
