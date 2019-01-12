@@ -7,6 +7,7 @@
 
 #include <SFML/Graphics.h>
 #include <unistd.h>
+#include <time.h>
 #include "data_structure/OmHash.h"
 #include "OmEngine.h"
 
@@ -21,7 +22,8 @@ void OmEvent_Process(OmWindowS *main_window, struct OmEvent_Storage *events)
 
 void game_loop(OmWindowS *main_window, struct OmEvent_Storage *events)
 {
-    OmDrawableS item = OmDrawable.ImportFromFile("./assets/object.json", "Player");
+    OmHashS *textures = OmHash.with_capacity(10);
+    OmDrawableS item = OmDrawable.ImportFromFile("./assets/object.json", "Player", textures);
     OmRendererS *r = OmRenderer.create(10);
     float t = 1;
 
@@ -29,7 +31,7 @@ void game_loop(OmWindowS *main_window, struct OmEvent_Storage *events)
         OmEvent_Process(main_window, events);
         sfRenderWindow_clear(main_window->window, sfBlack);
         if (sfTime_asSeconds(sfClock_getElapsedTime(main_window->clock)) >= t) {
-            OmDrawable.move(&item, (sfVector2f){100, 0});
+            Update_object(item);
             t += 1;
         }
         OmRenderer.push(r, item);
@@ -43,6 +45,7 @@ int main(int ac, char **av)
     OmWindowS main_window = OmEngine_Init();
     struct OmEvent_Storage events = OmEngine_InitEvent();
 
+    srand(time(NULL));
     game_loop(&main_window, &events);
     return (0);
 }

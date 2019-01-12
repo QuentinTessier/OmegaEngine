@@ -43,18 +43,27 @@ void OmDrawable_update_states(OmDrawableS *handle, sfShader *shader, sfTransform
 
 void OmDrawable_move(OmDrawableS *handle, sfVector2f offset)
 {
-    for (int i = 0; i <= handle->count; i++) {
+    for (unsigned int i = 0; i <= handle->count; i++) {
         handle->vertices[i].position.x += offset.x;
         handle->vertices[i].position.y += offset.y;
     }
 }
 
-OmDrawableS OmDrawable_ImportFromFile(const char *path);
+void OmDrawable_TexMove(OmDrawableS *handle, sfVector2f offset)
+{
+    for (unsigned int i = 0; i <= handle->count; i++) {
+        handle->vertices[i].texCoords.x += offset.x;
+        handle->vertices[i].texCoords.y += offset.y;
+    }
+}
+
+OmDrawableS OmDrawable_ImportFromFile(const char *path, const char *object_name);
 
 _OmDrawable const OmDrawable = {
     OmDrawable_new,
     OmDrawable_update_vertices,
     OmDrawable_update_states,
     OmDrawable_ImportFromFile,
-    OmDrawable_move
+    OmDrawable_move,
+    OmDrawable_TexMove
 };

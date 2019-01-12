@@ -54,3 +54,12 @@ struct OmEvent_Storage OmEngine_InitEvent(void)
     events.data[sfEvtMouseMoved][0].callback = MouseMove_Callback;
     return (events);
 }
+
+void Update_object(OmDrawableS object)
+{
+    for (int i = 0; i < object.count; i++) {
+        object.vertices[i].color.r += rand() % 255;
+        object.vertices[i].color.g += rand() % 255;
+        object.vertices[i].color.b += rand() % 255;
+    }
+}

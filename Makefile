@@ -26,6 +26,7 @@ ENGINE_SRC	=	$(ENGINE_PATH)/main.c 														\
 				$(ENGINE_PATH)/core/drawable/OmDrawable_parser.c							\
 				$(ENGINE_PATH)/core/renderer/OmRenderer.c 									\
 				$(ENGINE_PATH)/core/event/OmEvent.c		 									\
+				$(ENGINE_PATH)/core/OmTexture/OmTexture.c									\
 				$(ENGINE_PATH)/data_structure/OmHash/OmHash_access.c						\
 				$(ENGINE_PATH)/data_structure/OmHash/OmHash_values.c						\
 				$(ENGINE_PATH)/data_structure/OmHash/OmHash_construct.c						\

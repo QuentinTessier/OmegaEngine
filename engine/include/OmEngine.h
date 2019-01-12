@@ -21,3 +21,6 @@ typedef struct OmHashS OmHashS;
 OmWindowS OmEngine_Init(void);
 void OmEngine_InitData(OmWindowS *main_window, OmHashS *hash);
 struct OmEvent_Storage OmEngine_InitEvent(void);
+
+/* To delete */
+void Update_object(OmDrawableS object);
