@@ -21,9 +21,10 @@ typedef struct OmHashS OmHashS;
 */
 
 typedef struct OmObParserS {
-    char *path;
+    char path[256];
     char shaders_paths[3][256];
     sfShader *shaders;
+    sfTexture *texture;
 } OmObParserS;
 
 typedef struct OmDrawableS {

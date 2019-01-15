@@ -17,7 +17,7 @@ OmDrawableS OmDrawable_new(sfPrimitiveType type)
     new.type = type;
     new.count = 0;
     new.offset = 0;
-    new.states.blendMode = sfBlendAdd;
+    new.states.blendMode = sfBlendAlpha;
     new.states.shader = 0;
     new.states.texture = 0;
     new.states.transform = sfTransform_Identity;
@@ -57,7 +57,7 @@ void OmDrawable_TexMove(OmDrawableS *handle, sfVector2f offset)
     }
 }
 
-OmDrawableS OmDrawable_ImportFromFile(const char *path, const char *object_name);
+OmDrawableS OmDrawable_ImportFromFile(const char *path, const char *object_name, OmHashS *textures);
 
 _OmDrawable const OmDrawable = {
     OmDrawable_new,

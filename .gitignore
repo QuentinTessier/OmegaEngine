@@ -3,3 +3,4 @@ assets
 *.o
 OmegaEngine
 vgcore*
+OmegaEngine.supp

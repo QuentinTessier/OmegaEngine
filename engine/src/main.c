@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <time.h>
 #include "data_structure/OmHash.h"
+#include "core/renderer/OmTexture.h"
 #include "OmEngine.h"
 
 void OmEvent_Process(OmWindowS *main_window, struct OmEvent_Storage *events)
@@ -22,19 +23,18 @@ void OmEvent_Process(OmWindowS *main_window, struct OmEvent_Storage *events)
 
 void game_loop(OmWindowS *main_window, struct OmEvent_Storage *events)
 {
-    OmHashS *textures = OmHash.with_capacity(10);
-    OmDrawableS item = OmDrawable.ImportFromFile("./assets/object.json", "Player", textures);
+    OmDrawableS trunk = OmDrawable.ImportFromFile("./assets/tree.json", "Trunk", NULL);
+    OmDrawableS foliage = OmDrawable.ImportFromFile("./assets/tree.json", "Foliage", NULL);
     OmRendererS *r = OmRenderer.create(10);
-    float t = 1;
+    float move = 1.0f;
+    float update_time = 0.f;
 
     while (sfRenderWindow_isOpen(main_window->window)) {
         OmEvent_Process(main_window, events);
         sfRenderWindow_clear(main_window->window, sfBlack);
-        if (sfTime_asSeconds(sfClock_getElapsedTime(main_window->clock)) >= t) {
-            Update_object(item);
-            t += 1;
-        }
-        OmRenderer.push(r, item);
+        sfShader_setFloatUniform(foliage.parser_infos->shaders, "Time", sfTime_asSeconds(sfClock_getElapsedTime(main_window->clock)));
+        OmRenderer.push(r, trunk);
+        OmRenderer.push(r, foliage);
         OmRenderer.draw(r, main_window->window);
         sfRenderWindow_display(main_window->window);
     }

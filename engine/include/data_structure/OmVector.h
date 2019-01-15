@@ -49,7 +49,7 @@ typedef struct {
     ssize_t (* const find_last_index)(OmVectorS *this,
             bool (*predicate)(void *context, void *element, size_t idx),
             void *context);
-    void *(* const OmVec_find)(OmVectorS *this,
+    void *(* const find)(OmVectorS *this,
             bool (*predicate)(void *context, void *element, size_t idx),
             void *context);
     void *(* const find_last)(OmVectorS *this,

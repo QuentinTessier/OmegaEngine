@@ -5,6 +5,7 @@
 ** base_engine_func
 */
 
+#include <math.h>
 #include "data_structure/OmHash.h"
 #include "OmEngine.h"
 
@@ -21,21 +22,6 @@ OmWindowS OmEngine_Init(void)
     return (new_window);
 }
 
-void KeyA_Callback(OmWindowS *window, sfEvent event, void *data)
-{
-    printf("%d\n", (int)data);
-}
-
-void KeyM_Callback(OmWindowS *window, sfEvent event, void *data)
-{
-    printf("Ceci est une event !\n");
-}
-
-void MouseMove_Callback(OmWindowS *window, sfEvent event, void *data)
-{
-    printf("(%.1d, %.1d)\n", event.mouseMove.x, event.mouseMove.y);
-}
-
 struct OmEvent_Storage OmEngine_InitEvent(void)
 {
     struct OmEvent_Storage events;
@@ -46,20 +32,5 @@ struct OmEvent_Storage OmEngine_InitEvent(void)
             events.data[i][j].data = 0;
         }
     }
-    events.data[sfEvtKeyPressed][sfKeyA].data = 0x2;
-    events.data[sfEvtKeyPressed][sfKeyA].callback = KeyA_Callback;
-    events.data[sfEvtKeyPressed][sfKeyM].data = 0;
-    events.data[sfEvtKeyPressed][sfKeyM].callback = KeyM_Callback;
-    events.data[sfEvtMouseMoved][0].data = 0;
-    events.data[sfEvtMouseMoved][0].callback = MouseMove_Callback;
     return (events);
-}
-
-void Update_object(OmDrawableS object)
-{
-    for (int i = 0; i < object.count; i++) {
-        object.vertices[i].color.r += rand() % 255;
-        object.vertices[i].color.g += rand() % 255;
-        object.vertices[i].color.b += rand() % 255;
-    }
 }
