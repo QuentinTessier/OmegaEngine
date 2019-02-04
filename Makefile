@@ -13,50 +13,43 @@ CC			=	gcc
 
 INCLUDE		=	-Iinclude -Iengine/include
 
-LIBS		=	-L./engine/libs -ljsmn
+LIBS		=	-L./engine/lib/ -ljsmn
 
 CSFML		=	-lcsfml-graphics -lcsfml-window -lcsfml-audio -lcsfml-system
 
 MATH		=	-lm
 
-CFLAGS  	=	-Wall -Wextra -std=c11 $(INCLUDE) $(CSFML) $(LIBS) $(MATH)
+CFLAGS  	=	-Wall -Wextra -std=c11 $(INCLUDE) $(CSFML) $(MATH) $(LIBS)
 
-ENGINE_SRC	=	$(ENGINE_PATH)/main.c 														\
-				$(ENGINE_PATH)/core/drawable/OmDrawable.c 									\
-				$(ENGINE_PATH)/core/drawable/OmDrawable_parser.c							\
-				$(ENGINE_PATH)/core/renderer/OmRenderer.c 									\
-				$(ENGINE_PATH)/core/event/OmEvent.c		 									\
-				$(ENGINE_PATH)/core/OmTexture/OmTexture.c									\
-				$(ENGINE_PATH)/data_structure/OmHash/OmHash_access.c						\
-				$(ENGINE_PATH)/data_structure/OmHash/OmHash_values.c						\
-				$(ENGINE_PATH)/data_structure/OmHash/OmHash_construct.c						\
-				$(ENGINE_PATH)/data_structure/OmHash/OmHash_destruct.c						\
-				$(ENGINE_PATH)/data_structure/OmHash/OmHash_iterate.c						\
-				$(ENGINE_PATH)/data_structure/OmHash/OmHash_internal.c						\
-				$(ENGINE_PATH)/data_structure/OmHash/OmHash_namespace.c						\
-				$(ENGINE_PATH)/data_structure/OmVector/OmVector_iterate.c					\
-				$(ENGINE_PATH)/data_structure/OmVector/OmVector_mutation.c					\
-				$(ENGINE_PATH)/data_structure/OmVector/OmVector_destruct.c					\
-				$(ENGINE_PATH)/data_structure/OmVector/OmVector_set.c						\
-				$(ENGINE_PATH)/data_structure/OmVector/OmVector_find_item.c					\
-				$(ENGINE_PATH)/data_structure/OmVector/OmVector_namespace.c					\
-				$(ENGINE_PATH)/data_structure/OmVector/OmVector_access.c					\
-				$(ENGINE_PATH)/data_structure/OmVector/OmVector_internal.c					\
-				$(ENGINE_PATH)/data_structure/OmVector/OmVector_construct.c					\
-				$(ENGINE_PATH)/data_structure/OmStateMachine/OmStateMachine_namespace.c 	\
-				$(ENGINE_PATH)/data_structure/OmStateMachine/OmStateMachine.c 				\
-				$(ENGINE_PATH)/data_structure/OmPool/OmPool_namespace.c 					\
-				$(ENGINE_PATH)/data_structure/OmPool/OmPool.c
+ENGINE_SRC	=	$(ENGINE_PATH)/main.c																	\
+				$(ENGINE_PATH)/Application.c															\
+				$(ENGINE_PATH)/DataStruct/Vector_namespace.c											\
+				$(ENGINE_PATH)/DataStruct/Vector_internal.c												\
+				$(ENGINE_PATH)/DataStruct/Vector_construct.c											\
+				$(ENGINE_PATH)/DataStruct/Vector_destruct.c												\
+				$(ENGINE_PATH)/DataStruct/Vector_find.c													\
+				$(ENGINE_PATH)/DataStruct/Vector_data.c													\
+				$(ENGINE_PATH)/DataStruct/Vector_mutation.c												\
+				$(ENGINE_PATH)/DataStruct/Vector_iterate.c												\
+				$(ENGINE_PATH)/Graphics/BufferVector/BufferVector_namespace.c							\
+				$(ENGINE_PATH)/Graphics/BufferVector/BufferVector_internal.c							\
+				$(ENGINE_PATH)/Graphics/BufferVector/BufferVector_construct.c							\
+				$(ENGINE_PATH)/Graphics/BufferVector/BufferVector_destruct.c							\
+				$(ENGINE_PATH)/Graphics/BufferVector/BufferVector_find.c								\
+				$(ENGINE_PATH)/Graphics/BufferVector/BufferVector_data.c								\
+				$(ENGINE_PATH)/Graphics/BufferVector/BufferVector_mutation.c							\
+				$(ENGINE_PATH)/Graphics/BufferVector/BufferVector_iterate.c								\
+				$(ENGINE_PATH)/Graphics/Buffers.c														\
+				$(ENGINE_PATH)/Graphics/BufferPool.c
 
 ENGINE_OBJ	=	$(ENGINE_SRC:.c=.o)
-
-SRC			=	./game_src/base_engine_func.c
 
 OBJ			=	$(SRC:.c=.o)
 
 all:			$(NAME)
 
 $(NAME):		$(ENGINE_OBJ) $(OBJ)
+				$(MAKE) -C ./engine/lib/
 				$(CC) -o $(NAME) $(ENGINE_OBJ) $(OBJ) $(CFLAGS)
 				rm -f $(OBJ)
 
@@ -64,6 +57,7 @@ clean:
 				rm -f $(OBJ) $(ENGINE_OBJ)
 
 fclean:			clean
+				$(MAKE) -C ./engine/lib/ clean
 				rm -f $(NAME)
 
 re:				fclean all
