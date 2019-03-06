@@ -1,6 +1,6 @@
 # OmegaEngine
 
-OmegaEngine is a simple engine based on CSFML (SFML C binding).
+OmegaEngine is a simple 2D engine based on CSFML (SFML C binding).
 This engine will be used for the last project of my first year at Epitech, the goals are :
 
     - Provide a simplified developement environment for my teammates.

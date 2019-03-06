@@ -8,7 +8,6 @@
 #include <SFML/Window/VideoMode.h>
 #include "Window.h"
 #include "Application.h"
-#include "Graphics/BufferPool.h"
 
 #include "DataStruct/Vector.h"
 
@@ -18,12 +17,8 @@ void OmApp_destroy(struct OmApp *App)
 {
     sfRenderWindow_destroy(App->AppWindow->Window);
     sfClock_destroy(App->AppWindow->Time);
+    OmComponentS->Destroy(App->Root, true);
     return;
-}
-
-void update_vertexbuffer(sfVertexBuffer *buffer, OmVector *vector)
-{
-
 }
 
 void OmApp_run(struct OmApp *App)
@@ -62,6 +57,7 @@ OmApp OmApp_new(void)
 {
     OmApp new;
 
+    OmComponentS->Init(new.Root, 0, 5);
     new.Destroy = OmApp_destroy;
     new.Run = OmApp_run;
     new.CreateWindow = OmApp_create_window;
