@@ -19,4 +19,5 @@ typedef struct OmWindow {
         bool Right_Pressed;
     } Mouse;
     sfClock *Time;
+    double framerate;
 } OmWindow;

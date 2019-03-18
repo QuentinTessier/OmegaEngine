@@ -33,13 +33,13 @@ bool OmVector_insert(OmVector *this, size_t idx, void *item)
     if (this == 0 || this->size < idx)
         return (false);
     if (this->size == idx)
-        return (OmVectorS->push_back(this, 1, item) != -1);
+        return (OmVectorS->Push_back(this, 1, item) != -1);
     if ((this->size + 1) > this->capacity &&
             internal_vec_grow(this, 1) == 0)
             return (false);
     memmove(this->data + idx + 1, this->data + idx,
             (last_size - idx) * sizeof(void *));
-    OmVectorS->set(this, idx, item);
+    OmVectorS->Set(this, idx, item);
     return (true);
 }
 
@@ -53,7 +53,7 @@ bool OmVector_set(OmVector *this, size_t idx, void *item)
 
 bool OmVector_includes(OmVector *this, void *elem)
 {
-    return (this ? (OmVectorS->index_of(this, elem) != -1) : false);
+    return (this ? (OmVectorS->Index_of(this, elem) != -1) : false);
 }
 
 void *OmVector_front(OmVector *this)

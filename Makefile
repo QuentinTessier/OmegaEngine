@@ -9,6 +9,8 @@ NAME		=	OmegaEngine
 
 ENGINE_PATH	=	./engine/src
 
+GAME_PATH 	=	./game/src
+
 CC			=	gcc
 
 INCLUDE		=	-Iinclude -Iengine/include
@@ -18,6 +20,10 @@ CSFML		=	-lcsfml-graphics -lcsfml-window -lcsfml-audio -lcsfml-system
 MATH		=	-lm
 
 CFLAGS  	=	-Wall -Wextra -std=c11 $(INCLUDE) $(CSFML) $(MATH)
+
+VGCORE		=	vgcore*
+
+SRC 		=	$(GAME_PATH)/Callbacks.c
 
 ENGINE_SRC	=	$(ENGINE_PATH)/main.c																	\
 				$(ENGINE_PATH)/Application.c															\
@@ -43,7 +49,7 @@ $(NAME):		$(ENGINE_OBJ) $(OBJ)
 				rm -f $(OBJ)
 
 clean:
-				rm -f $(OBJ) $(ENGINE_OBJ)
+				rm -f $(OBJ) $(ENGINE_OBJ) $(VGCORE)
 
 fclean:			clean
 				rm -f $(NAME)

@@ -25,7 +25,7 @@ OmVector *OmVector_filter(OmVector *this,
         return (0);
     for (ssize_t idx = ((ssize_t)(this->size)) - 1; idx >= 0; idx--)
         if (predicate(context, this->data[idx], idx) == false)
-            OmVectorS->remove(this, idx);
+            OmVectorS->Remove(this, idx);
     return (this);
 }
 

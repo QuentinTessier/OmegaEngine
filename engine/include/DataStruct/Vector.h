@@ -20,78 +20,78 @@ typedef struct {
     /*
     ** Construction
     */
-    OmVector *(* const create)(void);
-    OmVector *(* const with_capacity)(size_t capacity);
-    OmVector *(* const clone)(OmVector *v);
+    OmVector *(* const Create)(void);
+    OmVector *(* const With_Capacity)(size_t capacity);
+    OmVector *(* const Clone)(OmVector *v);
 
     /*
     ** Destruction
     */
-    void (* const clear)(OmVector *this, bool free_items);
-    void (* const drop)(OmVector *this);
+    void (* const Clear)(OmVector *this, bool free_items);
+    void (* const Drop)(OmVector *this);
 
     /*
     ** Property access
     */
-    size_t (* const size)(OmVector *this);
-    size_t (* const capacity)(OmVector *this);
+    size_t (* const Size)(OmVector *this);
+    size_t (* const Capacity)(OmVector *this);
 
     /*
     ** Item access
     */
-    void *(* const at)(OmVector *this, size_t idx);
-    bool (* const set)(OmVector *this, size_t idx, void *item);
-    bool (* const includes)(OmVector *this, void *elem);
-    void *(* const front)(OmVector *this);
-    void *(* const back)(OmVector *this);
-    void ** (* const data)(OmVector *this);
+    void *(* const At)(OmVector *this, size_t idx);
+    bool (* const Set)(OmVector *this, size_t idx, void *item);
+    bool (* const Includes)(OmVector *this, void *elem);
+    void *(* const Front)(OmVector *this);
+    void *(* const Back)(OmVector *this);
+    void ** (* const Data)(OmVector *this);
 
 
     /*
     ** Item mutation
     */
-    ssize_t (* const push_back)(OmVector *this, size_t nb_args, ...);
-    ssize_t (* const push_front)(OmVector *this, size_t nb_args, ...);
-    void *(* const pop_back)(OmVector *this);
-    void *(* const pop_front)(OmVector *this);
-    bool (* const insert)(OmVector *this, size_t idx, void *elem);
-    void *(* const remove)(OmVector *this, size_t idx);
-    OmVector *(* const reverse)(OmVector *this);
-    OmVector *(* const concat)(OmVector *this, OmVector *other);
-    bool (* const reserve)(OmVector *this, size_t capacity);
-    void (* const shrink_to_fit)(OmVector *this);
+    ssize_t (* const Push_back)(OmVector *this, size_t nb_args, ...);
+    ssize_t (* const Push_front)(OmVector *this, size_t nb_args, ...);
+    void *(* const Pop_back)(OmVector *this);
+    void *(* const Pop_front)(OmVector *this);
+    bool (* const Insert)(OmVector *this, size_t idx, void *elem);
+    void *(* const Remove)(OmVector *this, size_t idx);
+    OmVector *(* const Reverse)(OmVector *this);
+    OmVector *(* const Concat)(OmVector *this, OmVector *other);
+    bool (* const Reserve)(OmVector *this, size_t capacity);
+    void (* const Shrink_to_fit)(OmVector *this);
 
     /*
     ** Find item
     */
-    ssize_t (* const index_of)(OmVector *this, void *elem);
-    ssize_t (* const last_index_of)(OmVector *this, void *elem);
-    ssize_t (* const find_index)(OmVector *this,
+    ssize_t (* const Index_of)(OmVector *this, void *elem);
+    ssize_t (* const Last_index_of)(OmVector *this, void *elem);
+    ssize_t (* const Find_index)(OmVector *this,
         bool (*predicate)(void *context, void *elem, size_t idx),
         void *context);
-    ssize_t (* const find_last_index)(OmVector *this,
+    ssize_t (* const Find_last_index)(OmVector *this,
         bool (*predicate)(void *context, void *elem, size_t idx),
         void *context);
-    void *(* const find)(OmVector *this,
+    void *(* const Find)(OmVector *this,
         bool (*predicate)(void *context, void *elem, size_t idx),
         void *context);
-    void *(* const find_last)(OmVector *this,
+    void *(* const Find_last)(OmVector *this,
         bool (*predicate)(void *context, void *elem, size_t idx),
         void *context);
 
     /*
     ** Iterate over items
     */
-    void (* const map)(OmVector *this,
+    void (* const Map)(OmVector *this,
         void *(*func)(void *context, void *elem, size_t idx), void *context);
-    OmVector *(* const filter)(OmVector *this,
+    OmVector *(* const Filter)(OmVector *this,
         bool (*predicate)(void *context, void *elem, size_t idx),
         void *context);
-    OmVector *(* const sort)(OmVector *this,
+    OmVector *(* const Sort)(OmVector *this,
         int (*predicate)(void *a, size_t idx1, void *b, size_t idx2));
-    void (* const for_each)(OmVector *this,
+    void (* const ForEach)(OmVector *this,
         void (*func)(void *context, void *elem, size_t idx), void *context);
-    void *(* const reduce)(OmVector *this,
+    void *(* const Reduce)(OmVector *this,
         void *(*func)(void *context, void *acc, void *elem, size_t idx),
         void *context, void *acc);
 } _OmVector;

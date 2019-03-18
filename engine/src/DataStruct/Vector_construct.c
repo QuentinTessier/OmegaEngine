@@ -16,7 +16,7 @@ OmVector *OmVector_create(void)
 
 OmVector *OmVector_with_capacity(size_t capacity)
 {
-    OmVector *this = OmVectorS->create();
+    OmVector *this = OmVectorS->Create();
 
     if (this == 0)
         return (0);
@@ -35,7 +35,7 @@ OmVector *OmVector_clone(OmVector *src)
 
     if (src == 0)
         return (0);
-    this = OmVectorS->create();
+    this = OmVectorS->Create();
     if (this == 0)
         return (0);
     this->data = calloc(src->size, sizeof(void *));

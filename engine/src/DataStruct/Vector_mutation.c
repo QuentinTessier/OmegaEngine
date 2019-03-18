@@ -27,7 +27,7 @@ ssize_t OmVector_push_back(OmVector *this, size_t nb_args, ...)
     this->size = total_size;
     va_start(list, nb_args);
     for (size_t i = last_size; i < total_size; i++)
-        OmVectorS->set(this, i, va_arg(list, void *));
+        OmVectorS->Set(this, i, va_arg(list, void *));
     va_end(list);
     return (this->size);
 }
@@ -47,14 +47,14 @@ ssize_t OmVector_push_front(OmVector *this, size_t nb_args, ...)
     this->size += nb_args;
     va_start(list, nb_args);
     for (size_t i = 0; i < nb_args; i++)
-        OmVectorS->set(this, i, va_arg(list, void *));
+        OmVectorS->Set(this, i, va_arg(list, void *));
     va_end(list);
     return (this->size);
 }
 
 void *OmVector_pop_back(OmVector *this)
 {
-    void *item = OmVectorS->back(this);
+    void *item = OmVectorS->Back(this);
 
     if (this == 0 || this->size == 0)
         return (0);
@@ -64,7 +64,7 @@ void *OmVector_pop_back(OmVector *this)
 
 void *OmVector_pop_front(OmVector *this)
 {
-    void *item = OmVectorS->front(this);
+    void *item = OmVectorS->Front(this);
 
     if (this == 0 || this->size == 0)
         return (0);
@@ -121,9 +121,9 @@ OmVector *OmVector_concat(OmVector *this, OmVector *other)
 {
     if (this == 0 || other == 0)
         return (this);
-    OmVectorS->reserve(this, this->size + other->size);
+    OmVectorS->Reserve(this, this->size + other->size);
     for (size_t idx = 0; idx < other->size; idx++)
-        OmVectorS->push_back(this, 1, other->data[idx]);
+        OmVectorS->Push_back(this, 1, other->data[idx]);
     return (this);
 }
 

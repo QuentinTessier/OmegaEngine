@@ -22,7 +22,7 @@ static size_t compute_capacity(size_t capacity)
 
 OmVector *internal_vec_grow(OmVector *this, size_t count)
 {
-    bool ret = OmVectorS->reserve(this, compute_capacity(this->size + count));
+    bool ret = OmVectorS->Reserve(this, compute_capacity(this->size + count));
 
     return (ret ? this : 0);
 }

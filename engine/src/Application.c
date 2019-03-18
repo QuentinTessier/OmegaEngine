@@ -10,56 +10,48 @@
 #include "Application.h"
 
 #include "DataStruct/Vector.h"
-
-#define MS_PER_UPDATE 16.0f
+#include "Callbacks.h"
 
 void OmApp_destroy(struct OmApp *App)
 {
     sfRenderWindow_destroy(App->AppWindow->Window);
     sfClock_destroy(App->AppWindow->Time);
-    OmComponentS->Destroy(App->Root, true);
+    OmComponentS->Destroy(App->Comp, true);
     return;
 }
 
-void OmApp_run(struct OmApp *App)
+int OmApp_run(struct OmApp *App)
 {
-    sfEvent event;
-    float lag = 0;
-    float previous = sfTime_asMilliseconds(sfClock_getElapsedTime(App->AppWindow->Time));
-    float current = 0;
-    float elapsed = 0;
-
-    while (sfRenderWindow_isOpen(App->AppWindow->Window)) {
-        current = sfTime_asMilliseconds(sfClock_getElapsedTime(App->AppWindow->Time));
-        elapsed = current - previous;
-        previous = current;
-        lag += elapsed;
-        while (sfRenderWindow_pollEvent(App->AppWindow->Window, &event)) {
-            if (event.type == sfEvtClosed)
-                sfRenderWindow_close(App->AppWindow->Window);
-        }
-        while (lag >= MS_PER_UPDATE) {
-            lag -= MS_PER_UPDATE;
-        }
-        sfRenderWindow_clear(App->AppWindow->Window, sfBlack);
-        sfRenderWindow_display(App->AppWindow->Window);
-    }
-    return;
-}
-
-void OmApp_create_window(struct OmApp *App)
-{
-    App->AppWindow->Window = sfRenderWindow_create((sfVideoMode){1280, 768, 32}, "NAME", sfClose, 0);
-    App->AppWindow->Time = sfClock_create();
+    App->CreateHierarchy(App);
+    return (OmApp_GameLoop(App));
 }
 
 OmApp OmApp_new(void)
 {
     OmApp new;
 
-    OmComponentS->Init(new.Root, 0, 5);
+    new.Comp->Child = 0;
     new.Destroy = OmApp_destroy;
     new.Run = OmApp_run;
-    new.CreateWindow = OmApp_create_window;
+    new.CreateWindow = OmApp_CreateWindow;
+    new.CreateHierarchy = OmApp_CreateHierarchy;
     return (new);
 }
+
+double OmApp_GetTime(OmApp *App, int TimeUnit)
+{
+    sfTime tmp = sfClock_getElapsedTime(App->AppWindow->Time);
+
+    if (TimeUnit == As_Seconds)
+        return (sfTime_asSeconds(tmp));
+    else if (TimeUnit == As_MilliSeconds)
+        return (sfTime_asMilliseconds(tmp));
+    else
+        return (sfTime_asMicroseconds(tmp));
+}
+
+_OmApp OmAppS[1] = {
+    {
+        OmApp_GetTime
+    }
+};
