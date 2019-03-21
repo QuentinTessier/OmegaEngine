@@ -35,7 +35,8 @@ ENGINE_SRC	=	$(ENGINE_PATH)/main.c																	\
 				$(ENGINE_PATH)/DataStruct/Vector_find.c													\
 				$(ENGINE_PATH)/DataStruct/Vector_data.c													\
 				$(ENGINE_PATH)/DataStruct/Vector_mutation.c												\
-				$(ENGINE_PATH)/DataStruct/Vector_iterate.c
+				$(ENGINE_PATH)/DataStruct/Vector_iterate.c												\
+				$(ENGINE_PATH)/Graphics/DrawData.c
 
 ENGINE_OBJ	=	$(ENGINE_SRC:.c=.o)
 
@@ -45,7 +46,7 @@ all:			$(NAME)
 
 $(NAME):		$(ENGINE_OBJ) $(OBJ)
 				$(CC) -o $(NAME) $(ENGINE_OBJ) $(OBJ) $(CFLAGS)
-				@echo -e "\033[0;35mCompiling !\033[0m" 
+				@echo -e "\033[0;35mCompiling !\033[0m"
 				rm -f $(OBJ)
 
 clean:

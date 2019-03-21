@@ -20,9 +20,41 @@ void OmApp_destroy(struct OmApp *App)
     return;
 }
 
+int OmApp_GameLoop(struct OmApp *App)
+{
+    sfEvent event;
+    double lastTime = OmAppS->GetTime(App, As_MilliSeconds);
+    double Current = 0;
+    double DeltaTime = 0;
+    double RenderTime = App->AppWindow->framerate;
+
+    while (sfRenderWindow_isOpen(App->AppWindow->Window)) {
+        Current = OmAppS->GetTime(App, As_MilliSeconds);
+        DeltaTime = Current - lastTime;
+        // Event
+        while (sfRenderWindow_pollEvent(App->AppWindow->Window, &event)) {
+            if (App->Comp->OnEvent)
+                App->Comp->OnEvent(App->Comp, event);
+        }
+        // Update
+        if (App->Comp->Update)
+            App->Comp->Update(App->Comp, DeltaTime, 0);
+        // Render
+        if (RenderTime <= 0) {
+            sfRenderWindow_clear(App->AppWindow->Window, sfBlack);
+            sfRenderWindow_display(App->AppWindow->Window);
+            RenderTime = App->AppWindow->framerate;
+        } else
+            RenderTime -= DeltaTime;
+        lastTime = Current;
+    }
+    return (0);
+}
+
 int OmApp_run(struct OmApp *App)
 {
-    App->CreateHierarchy(App);
+    if (App->CreateHierarchy)
+        App->CreateHierarchy(App);
     return (OmApp_GameLoop(App));
 }
 

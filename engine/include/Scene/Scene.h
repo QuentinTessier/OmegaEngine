@@ -18,7 +18,6 @@ typedef struct OmScene {
 
     sfView *camera;
     sfTransform Scene_Matrix;
-
 } OmScene;
 
 struct _OmScene {

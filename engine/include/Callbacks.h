@@ -11,4 +11,3 @@
 
 extern void (* OmApp_CreateWindow)(struct OmApp *App);
 extern int (* OmApp_CreateHierarchy)(struct OmApp *App);
-extern int (* OmApp_GameLoop)(struct OmApp *App);

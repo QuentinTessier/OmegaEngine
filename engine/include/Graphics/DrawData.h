@@ -18,6 +18,15 @@ typedef struct OmDrawData {
 
     sfVector2f Velocity;        // Move update at every frames (time based)
     float Angle;                // Angle value for next rotation
+    sfTransform Matrix;
 
     void (* Draw)(struct OmDrawData *item, sfRenderWindow *Window, sfTransform *World_Matrix);
-} OmDrawable;
+    void (* Move)(struct OmDrawData *item, sfVector2f Movement);
+} OmDrawData;
+
+typedef struct {
+    OmDrawData *(* const Create)(void);
+    void (* const Init)(OmDrawData *item, OmComponent *Parent);
+} _OmDrawData;
+
+extern _OmDrawData OmDrawDataS[1];
