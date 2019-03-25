@@ -21,6 +21,7 @@
 #define LOG_TO_FILE     0
 
 enum Log_Tag {
+    LTAG_NONE,
     LTAG_ERROR,
     LTAG_WARNING,
     LTAG_INFO,
@@ -30,10 +31,12 @@ enum Log_Tag {
 void OmLog_Log(int Tag, const char *format, ...);
 
 #define OmLog_(Condition, Tag, Format, ...)                                         \
-    if ((LOG_TO_CONSOLE || LOG_TO_FILE) && !(Condition)) {                             \
+    if ((LOG_TO_CONSOLE || LOG_TO_FILE) && !(Condition)) {                          \
         OmLog_Log(Tag, Format, __VA_ARGS__);                                        \
         if (Tag == LTAG_ERROR || Tag == LTAG_WARNING)                               \
             assert(Condition);                                                      \
-    }
+    }                                                                               \
+    if (Tag == LTAG_ERROR)                                                          \
+        assert(Condition);
 
 #define ASSERT_TEST(x) assert(x)

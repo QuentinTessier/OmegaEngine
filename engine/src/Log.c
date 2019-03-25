@@ -23,7 +23,7 @@ static void OmLog_Tag(FILE *fd, int Tag)
         fprintf(fd, "%s", LOG_WARNING);
     } else if (Tag == LTAG_INFO) {
         fprintf(fd, "%s", LOG_INFO);
-    } else {
+    } else if (Tag == LTAG_SUCCESS) {
         fprintf(fd, "%s", LOG_SUCCESS);
     }
 }
@@ -61,7 +61,7 @@ void OmLog_Log(int Tag, const char *Format, ...)
             free(path);
         }
         if (fd == 0) {
-            dprintf(2, "%sCouldn't open or create log file\n", LOG_INFO);
+            dprintf(2, "%sCouldn't open or create log file\n", LOG_WARNING);
             return;
         }
         OmLog_Tag(fd, Tag);
