@@ -27,6 +27,7 @@ typedef struct OmDrawData {
 typedef struct {
     OmDrawData *(* const Create)(void);
     void (* const Init)(OmDrawData *item, OmComponent *Parent);
+    sfTransform (* const CreateFrameMatrix)(OmDrawData *item, float DeltaTime);
 } _OmDrawData;
 
 extern _OmDrawData OmDrawDataS[1];

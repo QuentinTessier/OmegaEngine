@@ -28,6 +28,7 @@ SRC 		=	$(GAME_PATH)/Callbacks.c
 ENGINE_SRC	=	$(ENGINE_PATH)/main.c																	\
 				$(ENGINE_PATH)/Application.c															\
 				$(ENGINE_PATH)/Component.c																\
+				$(ENGINE_PATH)/Log.c																	\
 				$(ENGINE_PATH)/DataStruct/Vector_namespace.c											\
 				$(ENGINE_PATH)/DataStruct/Vector_internal.c												\
 				$(ENGINE_PATH)/DataStruct/Vector_construct.c											\

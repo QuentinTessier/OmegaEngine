@@ -32,13 +32,13 @@ int OmApp_GameLoop(struct OmApp *App)
         Current = OmAppS->GetTime(App, As_MilliSeconds);
         DeltaTime = Current - lastTime;
         // Event
-        while (sfRenderWindow_pollEvent(App->AppWindow->Window, &event)) {
-            if (App->Comp->OnEvent)
-                App->Comp->OnEvent(App->Comp, event);
-        }
+        // while (sfRenderWindow_pollEvent(App->AppWindow->Window, &event)) {
+        //     if (App->Comp->OnEvent)
+        //         App->Comp->OnEvent(App->Comp, event);
+        // }
         // Update
-        if (App->Comp->Update)
-            App->Comp->Update(App->Comp, DeltaTime, 0);
+        // if (App->Comp->Update)
+        //     App->Comp->Update(App->Comp, DeltaTime, 0);
         // Render
         if (RenderTime <= 0) {
             sfRenderWindow_clear(App->AppWindow->Window, sfBlack);
