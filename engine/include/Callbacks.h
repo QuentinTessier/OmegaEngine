@@ -11,3 +11,4 @@
 
 extern void (* OmApp_CreateWindow)(struct OmApp *App);
 extern int (* OmApp_CreateHierarchy)(struct OmApp *App);
+extern int (* OmApp_DestroyHierarchy)(struct OmComponent *Comp);

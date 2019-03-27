@@ -16,7 +16,7 @@ void OmApp_destroy(struct OmApp *App)
 {
     sfRenderWindow_destroy(App->AppWindow->Window);
     sfClock_destroy(App->AppWindow->Time);
-    OmComponentS->Destroy(App->Comp, true);
+    OmApp_DestroyHierarchy(App->Comp);
     return;
 }
 
@@ -31,17 +31,15 @@ int OmApp_GameLoop(struct OmApp *App)
     while (sfRenderWindow_isOpen(App->AppWindow->Window)) {
         Current = OmAppS->GetTime(App, As_MilliSeconds);
         DeltaTime = Current - lastTime;
-        // Event
-        // while (sfRenderWindow_pollEvent(App->AppWindow->Window, &event)) {
-        //     if (App->Comp->OnEvent)
-        //         App->Comp->OnEvent(App->Comp, event);
-        // }
-        // Update
-        // if (App->Comp->Update)
-        //     App->Comp->Update(App->Comp, DeltaTime, 0);
-        // Render
+        while (sfRenderWindow_pollEvent(App->AppWindow, &event))
+            if (App->Comp->curState->OnEvent)
+                App->Comp->curState->OnEvent(App->Comp, event);
+        if (App->Comp->curState->Update)
+            App->Comp->curState->Update(App->Comp, DeltaTime);
         if (RenderTime <= 0) {
             sfRenderWindow_clear(App->AppWindow->Window, sfBlack);
+            if (App->Comp->curState->Render)
+                App->Comp->curState->Render(App, App->AppWindow->Window, sfTransform_Identity);
             sfRenderWindow_display(App->AppWindow->Window);
             RenderTime = App->AppWindow->framerate;
         } else

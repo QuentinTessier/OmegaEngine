@@ -14,20 +14,17 @@ static OmComponent *OmComponent_Create(void)
     return ((OmComponent *)malloc(sizeof(OmComponent)));
 }
 
-static void OmComponent_Destroy(OmComponent *item, bool free_child)
+static void OmComponent_Destroy(OmComponent *item)
 {
     OmComponent *tmp = 0;
 
     item->Parent = 0;
     if (item->Child == 0)
         return;
-    if (free_child && item->Child->size > 0) {
-        while (item->Child->size > 0) {
-            tmp = OmVectorS->Remove(item->Child, 0);
-            OmComponent_Destroy(tmp, free_child);
-        }
-    }
     OmVectorS->Drop(item->Child);
+    OmVectorS->Clear(item->StateMap, true);
+    OmVectorS->Drop(item->StateMap);
+    OmVectorS->Drop(item->Observers);
 }
 
 static OmComponent *OmComponent_Init(OmComponent *item, OmComponent *Parent)
@@ -41,7 +38,7 @@ static OmComponent *OmComponent_Init(OmComponent *item, OmComponent *Parent)
     item->Parent = Parent;
     item->Child = OmVectorS->With_Capacity(1);
     item->StateMap = OmVectorS->With_Capacity(1);
-    item->defState = OmComponentS->AddState(item, OmComponentState_Default, 0, 0);
+    item->defState = OmComponentS->AddState(item, OmComponentState_Default, 0, 0, 0);
     item->curState = item->defState;
     item->preState = item->defState;
     item->Observers = 0;
@@ -200,7 +197,7 @@ static void OmComponent_SetState(OmComponent *item, int stateID)
 }
 
 static OmComponentState *OmComponent_AddState(OmComponent *item, int stateID,
-    OmComponent_StateOnMessage OnMessage, OmComponent_StateUpdate Update)
+    OmComponent_StateOnMessage OnMessage, OmComponent_StateUpdate Update, OmComponent_Render *Render)
 {
     OmComponentState *state = 0;
 
@@ -211,6 +208,7 @@ static OmComponentState *OmComponent_AddState(OmComponent *item, int stateID,
     state->Update = Update;
     state->UpdateAfter = 0;
     state->OnMessage = OnMessage;
+    state->Render = 0;
     OmVectorS->Push_back(item->StateMap, 1, state);
     return (state);
 }

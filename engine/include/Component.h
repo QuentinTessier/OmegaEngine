@@ -43,6 +43,10 @@ struct OmComponentState {
     -- Called when a Message is received
     */
     bool (* OnMessage)(OmComponent *item, void *sender, int subject, void *extraData);
+    /*
+    -- Called on Rendering time
+    */
+    void (* Render)(OmComponent *item, sfRenderWindow *target, sfTransform ParentMatrix);
 };
 
 typedef enum ComponentMsg {
@@ -73,6 +77,7 @@ struct OmComponent {
 */
 typedef void (* OmComponent_StateUpdate)(OmComponent *item, float DeltaTime);
 typedef bool (* OmComponent_StateOnMessage)(OmComponent *item, void *sender, int subject, void *extraData);
+typedef void (* OmComponent_Render)(OmComponent *item, sfRenderWindow *window, sfTransform ParentMatrix);
 
 struct _OmComponent {
     /*
@@ -82,7 +87,7 @@ struct _OmComponent {
     /*
     -- Release memory using the destroy callback
     */
-    void (* const Destroy)(OmComponent *item, bool free_child);
+    void (* const Destroy)(OmComponent *item);
     /*
     -- Init data inside the Component
     */
@@ -133,7 +138,7 @@ struct _OmComponent {
     -- Add a state to the Component
     */
     OmComponentState *(* const AddState)(OmComponent *item, int StateID,
-        OmComponent_StateOnMessage OnMessage, OmComponent_StateUpdate Update);
+        OmComponent_StateOnMessage OnMessage, OmComponent_StateUpdate Update, OmComponent_Render Render);
     /*
     -- Set Component active state
     */
